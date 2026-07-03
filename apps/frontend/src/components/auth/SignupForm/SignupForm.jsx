@@ -3,6 +3,7 @@ import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../../services/authService";
+import Alert from "../../Alert/Alert";
 import {
   User,
   Mail,
