@@ -1,33 +1,51 @@
 import "./RightPanel.css";
+import { useState } from "react";
 
 import RoleSelector from "../RoleSelector/RoleSelector";
 import LoginForm from "../LoginForm/LoginForm";
+import SignupForm from "../SignupForm/SignupForm";
 import SocialLogin from "../SocialLogin/SocialLogin";
 
-const RightPanel = () => {
+const RightPanel = ({ mode = "login" }) => {
+  // Shared role state
+  const [role, setRole] = useState("doctor");
+
   return (
     <section className="right-panel">
-
       <div className="login-card">
 
+        {/* Header */}
         <div className="login-header">
-
-          <h1>Welcome Back!</h1>
+          <h1>
+            {mode === "login"
+              ? "Welcome Back!"
+              : "Create Account"}
+          </h1>
 
           <p>
-            Login to your account to continue
+            {mode === "login"
+              ? "Login to your account to continue"
+              : "Join ECG AI Analyzer today"}
           </p>
-
         </div>
 
-        <RoleSelector />
+        {/* Role Selector */}
+        <RoleSelector
+          role={role}
+          setRole={setRole}
+        />
 
-        <LoginForm />
+        {/* Forms */}
+        {mode === "login" ? (
+          <LoginForm role={role} />
+        ) : (
+          <SignupForm role={role} />
+        )}
 
-        <SocialLogin />
+        {/* Social Login */}
+        <SocialLogin mode={mode} />
 
       </div>
-
     </section>
   );
 };

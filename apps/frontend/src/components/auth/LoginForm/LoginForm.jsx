@@ -1,5 +1,9 @@
 import "./LoginForm.css";
+
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { login } from "../../../services/authService";
 
 import {
   Mail,
@@ -10,10 +14,61 @@ import {
 } from "lucide-react";
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+
+    const user = await login(
+      formData.email,
+      formData.password
+    );
+
+    console.log("Logged In User:", user);
+
+    alert("Login Successful!");
+
+    navigate("/dashboard");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
+
   return (
-    <form className="login-form">
+    <form
+  className="login-form"
+  onSubmit={handleSubmit}
+>
 
       {/* Email */}
 
@@ -24,10 +79,13 @@ const LoginForm = () => {
         <div className="input-box">
 
           <Mail size={20} />
-
           <input
             type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             placeholder="Enter your email address"
+            required
           />
 
         </div>
@@ -44,10 +102,14 @@ const LoginForm = () => {
 
           <Lock size={20} />
 
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
-          />
+        <input
+          type={showPassword ? "text" : "password"}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Enter your password"
+          required
+        />
 
           <button
             type="button"
@@ -90,12 +152,19 @@ const LoginForm = () => {
 
       {/* Login */}
 
-      <button className="login-btn">
-
-        Login
-
-        <ArrowRight size={18} />
-
+      <button
+        type="submit"
+        className="login-btn"
+        disabled={loading}
+      >
+        {loading ? (
+          "Signing In..."
+        ) : (
+          <>
+            Login
+            <ArrowRight size={18} />
+          </>
+        )}
       </button>
 
     </form>

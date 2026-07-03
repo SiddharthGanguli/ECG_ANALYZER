@@ -1,57 +1,48 @@
 import "./SocialLogin.css";
-import google from "../../../assets/google.svg";
-import microsoft from "../../../assets/microsoft.svg";
+import { Link } from "react-router-dom";
 
-const SocialLogin = () => {
+import googleIcon from "../../../assets/google.svg";
+import microsoftIcon from "../../../assets/microsoft.svg";
+
+const SocialLogin = ({ mode }) => {
   return (
     <div className="social-login">
 
       {/* Divider */}
-
       <div className="divider">
-
         <span></span>
-
         <p>or continue with</p>
-
         <span></span>
-
       </div>
 
-      {/* Buttons */}
-
+      {/* Social Buttons */}
       <div className="social-buttons">
 
         <button className="social-btn">
-
-          <img src={google} alt="Google" />
-
+          <img src={googleIcon} alt="Google" />
           <span>Continue with Google</span>
-
         </button>
 
         <button className="social-btn">
-
-          <img src={microsoft} alt="Microsoft" />
-
+          <img src={microsoftIcon} alt="Microsoft" />
           <span>Continue with Microsoft</span>
-
         </button>
 
       </div>
 
-      {/* Signup */}
-
+      {/* Bottom Link */}
       <p className="signup-text">
-
-        Don't have an account?
-
-        <a href="/signup">
-
-          Sign up here
-
-        </a>
-
+        {mode === "login" ? (
+          <>
+            Don't have an account?
+            <Link to="/signup"> Sign up here</Link>
+          </>
+        ) : (
+          <>
+            Already have an account?
+            <Link to="/"> Login here</Link>
+          </>
+        )}
       </p>
 
     </div>
