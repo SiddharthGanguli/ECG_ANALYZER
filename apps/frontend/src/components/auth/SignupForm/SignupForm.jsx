@@ -1,5 +1,5 @@
 import "./SignupForm.css";
-
+import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../../services/authService";
@@ -58,7 +58,10 @@ const SignupForm = ({ role }) => {
 
     console.log("Firebase User:", user);
 
-    alert("Account created successfully!");
+    <Alert
+    type="success"
+    message="Account created successfully!"
+/>
 
     // Go back to Login page
     navigate("/");
@@ -66,7 +69,7 @@ const SignupForm = ({ role }) => {
   } catch (error) {
     console.error(error);
 
-    alert(error.message);
+    alert(getFirebaseError(error.code));
 
   } finally {
     setLoading(false);

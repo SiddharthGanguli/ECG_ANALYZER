@@ -2,9 +2,8 @@ import "./LoginForm.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { login } from "../../../services/authService";
-
+import { getFirebaseError } from "../../../utils/firebaseErrors";
 import {
   Mail,
   Lock,
@@ -55,9 +54,9 @@ const handleSubmit = async (e) => {
 
     console.error(error);
 
-    alert(error.message);
+    alert(getFirebaseError(error.code));
 
-  } finally {
+} finally {
 
     setLoading(false);
 
