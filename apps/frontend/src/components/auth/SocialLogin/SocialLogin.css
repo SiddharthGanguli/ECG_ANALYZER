@@ -1,0 +1,93 @@
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Divider */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.divider p {
+    margin: 0;
+    font-size: 15px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+/* Buttons */
+
+.social-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-btn {
+    flex: 1;
+    height: 56px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 14px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.social-btn:hover {
+    background: #f8fbff;
+    border-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+.social-btn img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Signup */
+
+.signup-text {
+    text-align: center;
+    font-size: 15px;
+    color: #64748b;
+    margin: 0;
+}
+
+.signup-text a {
+    margin-left: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .social-buttons {
+        flex-direction: column;
+    }
+}
