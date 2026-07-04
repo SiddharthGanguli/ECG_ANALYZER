@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../../services/authService";
 import Alert from "../../Alert/Alert";
+import { createUser } from "../../../services/userService";
 import {
   User,
   Mail,
@@ -49,32 +50,41 @@ const SignupForm = ({ role }) => {
 
   setLoading(true);
 
-  try {
-    // Create Firebase User
-    const user = await signup(
-      formData.email,
-      formData.password,
-      formData.fullName
-    );
+try {
 
-    console.log("Firebase User:", user);
+  // Create Firebase User
+  const user = await signup(
+    formData.email,
+    formData.password,
+    formData.fullName
+  );
 
-    <Alert
-    type="success"
-    message="Account created successfully!"
-/>
+  console.log("Firebase User:", user);
 
-    // Go back to Login page
-    navigate("/");
+  // Save user in PostgreSQL
+  await createUser({
+    firebase_uid: user.uid,
+    role,
+    full_name: formData.fullName,
+    email: formData.email,
+    phone: formData.phone,
+  });
 
-  } catch (error) {
-    console.error(error);
+  alert("Account created successfully!");
 
-    alert(getFirebaseError(error.code));
+  navigate("/");
 
-  } finally {
-    setLoading(false);
-  }
+} catch (error) {
+
+  console.error(error);
+
+  alert(getFirebaseError(error.code));
+
+} finally {
+
+  setLoading(false);
+
+}
 };
 
 return (
