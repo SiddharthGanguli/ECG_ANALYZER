@@ -1,4 +1,5 @@
 import "./SignupForm.css";
+import { toast } from "sonner";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,163 +40,190 @@ const SignupForm = ({ role }) => {
       [name]: value,
     }));
   };
-  const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  // Password Validation
-  if (formData.password !== formData.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
   setLoading(true);
 
-try {
+  // Password Validation
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Password Mismatch", {
+      description: "Password and Confirm Password must be the same.",
+    });
 
-  // Create Firebase User
-  const user = await signup(
-    formData.email,
-    formData.password,
-    formData.fullName
-  );
+    setLoading(false);
+    return;
+  }
 
-  console.log("Firebase User:", user);
+  try {
+    // Create Firebase User
+    const user = await signup(
+      formData.email,
+      formData.password,
+      formData.fullName
+    );
 
-  // Save user in PostgreSQL
-  await createUser({
-    firebase_uid: user.uid,
-    role,
-    full_name: formData.fullName,
-    email: formData.email,
-    phone: formData.phone,
-  });
+    console.log("Firebase User:", user);
 
-  alert("Account created successfully!");
+    // Save user in PostgreSQL
+    await createUser({
+      firebase_uid: user.uid,
+      role,
+      full_name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+    });
 
-  navigate("/");
+    toast.success("Account created successfully!");
 
-} catch (error) {
+    navigate("/");
+  } catch (error) {
+    console.error(error);
 
-  console.error(error);
-
-  alert(getFirebaseError(error.code));
-
-} finally {
-
-  setLoading(false);
-
-}
+    toast.error("Registration Failed", {
+      description: getFirebaseError(error.code),
+    });
+  } finally {
+    setLoading(false);
+  }
 };
 
-return (
+  return (
+    <form
+      className="signup-form"
+      onSubmit={handleSubmit}
+    >
 
-  
-  <form
-  className="signup-form"
-  onSubmit={handleSubmit}
->
+      {/* Full Name */}
 
-    <div className="form-group">
+      <div className="form-group">
 
-      <label>Full Name</label>
+        <label>Full Name</label>
 
-      <div className="input-box">
+        <div className="input-box">
 
-        <User size={20} />
+          <User size={20} />
 
-        <input
-          type="text"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="Enter your full name"
-          required
-        />
+          <input
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+            required
+          />
+
+        </div>
 
       </div>
 
-    </div>
-  <div className="form-group">
+      {/* Email */}
 
-  <label>Email Address</label>
+      <div className="form-group">
 
-  <div className="input-box">
+        <label>Email Address</label>
 
-    <Mail size={20} />
+        <div className="input-box">
 
-    <input
-      type="email"
-      name="email"
-      value={formData.email}
-      onChange={handleChange}
-      placeholder="Enter your email address"
-      required
-    />
+          <Mail size={20} />
 
-  </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email address"
+            required
+          />
 
-</div>
+        </div>
 
-    <div className="form-group">
-  <label>Phone Number</label>
+      </div>
 
-  <div className="input-box">
-    <Phone size={20} />
+      {/* Phone */}
 
-    <input
-      type="tel"
-      name="phone"
-      value={formData.phone}
-      onChange={handleChange}
-      placeholder="Enter your phone number"
-      required
-    />
-  </div>
-</div>
+      <div className="form-group">
 
-<div className="form-group">
-  <label>Password</label>
+        <label>Phone Number</label>
 
-  <div className="input-box">
-    <Lock size={20} />
+        <div className="input-box">
 
-    <input
-      type="password"
-      name="password"
-      value={formData.password}
-      onChange={handleChange}
-      placeholder="Enter password"
-      required
-    />
-  </div>
-</div>
+          <Phone size={20} />
 
-<div className="form-group">
-  <label>Confirm Password</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            required
+          />
 
-  <div className="input-box">
-    <Lock size={20} />
+        </div>
 
-    <input
-      type="password"
-      name="confirmPassword"
-      value={formData.confirmPassword}
-      onChange={handleChange}
-      placeholder="Confirm Password"
-      required
-    />
-  </div>
-</div>
-<button
-  type="submit"
-  className="signup-btn"
-  disabled={loading}
->
-  {loading ? "Creating Account..." : "Create Account"}
-</button>
-  </form>
-  
-);
+      </div>
+
+      {/* Password */}
+
+      <div className="form-group">
+
+        <label>Password</label>
+
+        <div className="input-box">
+
+          <Lock size={20} />
+
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter password"
+            required
+          />
+
+        </div>
+
+      </div>
+
+      {/* Confirm Password */}
+
+      <div className="form-group">
+
+        <label>Confirm Password</label>
+
+        <div className="input-box">
+
+          <Lock size={20} />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            placeholder="Confirm Password"
+            required
+          />
+
+        </div>
+
+      </div>
+
+      {/* Submit */}
+
+      <button
+        type="submit"
+        className="signup-btn"
+        disabled={loading}
+      >
+        {loading
+          ? "Creating Account..."
+          : "Create Account"}
+      </button>
+
+    </form>
+  );
+
 };
-
 export default SignupForm;
