@@ -1,0 +1,170 @@
+.recent-patients {
+  background: #ffffff;
+  border-radius: 22px;
+  margin-top: 30px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+/* Header */
+
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 28px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.recent-header h2 {
+  font-size: 28px;
+  color: #1e293b;
+}
+
+.recent-header button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  text-align: left;
+  padding: 18px 22px;
+  font-size: 15px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+td {
+  padding: 18px 22px;
+  border-top: 1px solid #edf2f7;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+/* Patient */
+
+.patient-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #eaf2ff;
+  color: #2563eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.patient-info h4 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.patient-info span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Risk */
+
+.risk {
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.high {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.medium {
+  background: #fff7ed;
+  color: #f59e0b;
+}
+
+.low {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+/* Confidence */
+
+.confidence {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress {
+  width: 140px;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 20px;
+}
+
+/* Button */
+
+.view-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.view-btn:hover {
+  text-decoration: underline;
+}
+
+/* Hover */
+
+tbody tr {
+  transition: 0.3s;
+}
+
+tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+  .recent-patients {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 1000px;
+  }
+}
