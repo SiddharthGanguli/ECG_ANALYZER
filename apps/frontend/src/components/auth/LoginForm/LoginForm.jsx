@@ -2,6 +2,8 @@ import "./LoginForm.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import { login } from "../../../services/authService";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { getUserByUid } from "../../../services/userService";
@@ -21,24 +23,27 @@ const LoginForm = ({ role }) => {
 
   const [loading, setLoading] = useState(false);
 
+  // NEW STATE
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
-const handleSubmit = async (e) => {
-  e.preventDefault();
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
+    setLoading(true);
 
     // Login with Firebase
     const firebaseUser = await login(
@@ -63,7 +68,7 @@ const handleSubmit = async (e) => {
       return;
     }
 
-    alert("Login Successful!");
+      console.log("Logged In User:", user);
 
     // Navigate based on role
     if (dbUser.role === "doctor") {
@@ -76,122 +81,135 @@ const handleSubmit = async (e) => {
 
     }
 
-  } catch (error) {
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
 
-    console.error(error);
+    } catch (error) {
 
-    alert(getFirebaseError(error.code));
+      console.error(error);
 
   } finally {
 
-    setLoading(false);
+    } finally {
 
   }
 };
   return (
-    <form
-  className="login-form"
-  onSubmit={handleSubmit}
->
+    <>
 
-      {/* Email */}
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+      >
 
-      <div className="form-group">
+        {/* Email */}
 
-        <label>Email Address</label>
+        <div className="form-group">
 
-        <div className="input-box">
+          <label>Email Address</label>
 
-          <Mail size={20} />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email address"
-            required
-          />
+          <div className="input-box">
+
+            <Mail size={20} />
+
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email address"
+              required
+            />
+
+          </div>
 
         </div>
 
-      </div>
+        {/* Password */}
 
-      {/* Password */}
+        <div className="form-group">
 
-      <div className="form-group">
+          <label>Password</label>
 
-        <label>Password</label>
+          <div className="input-box">
 
-        <div className="input-box">
+            <Lock size={20} />
 
-          <Lock size={20} />
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
 
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter your password"
-          required
-        />
+            <button
+              type="button"
+              className="eye-btn"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOff size={18} />
+              ) : (
+                <Eye size={18} />
+              )}
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* Remember */}
+
+        <div className="form-options">
+
+          <label className="remember">
+
+            <input type="checkbox" />
+
+            Remember me
+
+          </label>
 
           <button
             type="button"
-            className="eye-btn"
-            onClick={() => setShowPassword(!showPassword)}
+            className="forgot-btn"
+            onClick={() => setShowForgotPassword(true)}
           >
-
-            {showPassword ? (
-              <EyeOff size={18} />
-            ) : (
-              <Eye size={18} />
-            )}
-
+            Forgot Password?
           </button>
 
         </div>
 
-      </div>
-
-      {/* Remember */}
-
-      <div className="form-options">
-
-        <label className="remember">
-
-          <input type="checkbox" />
-
-          Remember me
-
-        </label>
+        {/* Login */}
 
         <button
-          type="button"
-          className="forgot-btn"
+          type="submit"
+          className="login-btn"
+          disabled={loading}
         >
-          Forgot Password?
+          {loading ? (
+            "Signing In..."
+          ) : (
+            <>
+              Login
+              <ArrowRight size={18} />
+            </>
+          )}
         </button>
 
-      </div>
+      </form>
 
-      {/* Login */}
+      {/* Forgot Password Popup */}
 
-      <button
-        type="submit"
-        className="login-btn"
-        disabled={loading}
-      >
-        {loading ? (
-          "Signing In..."
-        ) : (
-          <>
-            Login
-            <ArrowRight size={18} />
-          </>
-        )}
-      </button>
+      <ForgotPassword
+        isOpen={showForgotPassword}
+        onClose={() => setShowForgotPassword(false)}
+      />
 
-    </form>
+    </>
   );
 };
 
