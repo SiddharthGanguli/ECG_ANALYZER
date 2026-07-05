@@ -33,13 +33,30 @@ app.add_middleware(
 )
 
 # Register routers
-app.include_router(user_router)
+# Register routers
+app.include_router(
+    user_router,
+    prefix="/users",
+    tags=["Users"]
+)
 
-app.include_router(patient_router)
+app.include_router(
+    patient_router,
+    prefix="/patients",
+    tags=["Patients"]
+)
 
-app.include_router(doctor_router)
+app.include_router(
+    doctor_router,
+    prefix="/doctors",
+    tags=["Doctors"]
+)
 
-app.include_router(ecg_router)
+app.include_router(
+    ecg_router,
+    prefix="/ecg",
+    tags=["ECG"]
+)
 
 
 @app.get("/")

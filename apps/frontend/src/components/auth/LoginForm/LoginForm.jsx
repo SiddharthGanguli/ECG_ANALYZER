@@ -3,7 +3,7 @@ import "./LoginForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { login } from "../../../services/authService";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { getUserByUid } from "../../../services/userService";
@@ -40,11 +40,12 @@ const LoginForm = ({ role }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    setLoading(true);
+  setLoading(true);
 
+  try {
     // Login with Firebase
     const firebaseUser = await login(
       formData.email,
@@ -60,39 +61,32 @@ const LoginForm = ({ role }) => {
 
     // Check selected role
     if (dbUser.role !== role) {
-
-      alert(
-        `This account is registered as a ${dbUser.role}.`
-      );
+      toast.error("Wrong Account Type", {
+        description: `This account is registered as a ${dbUser.role}.`,
+      });
 
       return;
     }
 
-      console.log("Logged In User:", user);
+    console.log("Logged In User:", dbUser);
 
-    // Navigate based on role
+    toast.success("Login Successful!");
+
     if (dbUser.role === "doctor") {
-
       navigate("/doctor/dashboard");
-
     } else {
-
       navigate("/patient/dashboard");
-
     }
 
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1500);
+  } catch (error) {
+    console.error(error);
 
-    } catch (error) {
-
-      console.error(error);
+    toast.error("Login Failed", {
+      description: getFirebaseError(error.code),
+    });
 
   } finally {
-
-    } finally {
-
+    setLoading(false);
   }
 };
   return (
