@@ -6,9 +6,7 @@ import { toast } from "sonner";
 
 import { login } from "../../../services/authService";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
-
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-
+import { getUserByUid } from "../../../services/userService";
 import {
   Mail,
   Lock,
@@ -17,7 +15,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const LoginForm = () => {
+const LoginForm = ({ role }) => {
 
   const navigate = useNavigate();
 
@@ -47,20 +45,41 @@ const LoginForm = () => {
 
     setLoading(true);
 
-    try {
+    // Login with Firebase
+    const firebaseUser = await login(
+      formData.email,
+      formData.password
+    );
 
-      const user = await login(
-        formData.email,
-        formData.password
+    console.log("Firebase User:", firebaseUser);
+
+    // Get user from PostgreSQL
+    const dbUser = await getUserByUid(firebaseUser.uid);
+
+    console.log("Database User:", dbUser);
+
+    // Check selected role
+    if (dbUser.role !== role) {
+
+      alert(
+        `This account is registered as a ${dbUser.role}.`
       );
+
+      return;
+    }
 
       console.log("Logged In User:", user);
 
-      toast.success("Login Successful", {
-        description: `Welcome back ${
-          user.displayName || "Doctor"
-        }. Redirecting to dashboard...`,
-      });
+    // Navigate based on role
+    if (dbUser.role === "doctor") {
+
+      navigate("/doctor/dashboard");
+
+    } else {
+
+      navigate("/patient/dashboard");
+
+    }
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -70,17 +89,12 @@ const LoginForm = () => {
 
       console.error(error);
 
-      toast.error("Login Failed", {
-        description: getFirebaseError(error.code),
-      });
+  } finally {
 
     } finally {
 
-      setLoading(false);
-
-    }
-  };
-
+  }
+};
   return (
     <>
 

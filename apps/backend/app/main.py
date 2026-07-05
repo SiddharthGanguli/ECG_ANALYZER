@@ -1,0 +1,49 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.database.database import engine, Base
+
+# Import all models
+from app.models import *
+
+# Import routers
+from app.api.v1.endpoints.users import router as user_router
+from app.api.v1.endpoints.patients import router as patient_router
+from app.api.v1.endpoints.doctors import router as doctor_router
+from app.api.v1.endpoints.ecg import router as ecg_router
+
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title="ECG AI Analyzer API",
+    version="1.0.0"
+)
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Register routers
+app.include_router(user_router)
+
+app.include_router(patient_router)
+
+app.include_router(doctor_router)
+
+app.include_router(ecg_router)
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "ECG AI Backend Running Successfully"
+    }

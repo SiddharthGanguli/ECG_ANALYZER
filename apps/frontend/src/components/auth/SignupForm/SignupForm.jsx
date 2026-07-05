@@ -4,7 +4,8 @@ import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../../services/authService";
-
+import Alert from "../../Alert/Alert";
+import { createUser } from "../../../services/userService";
 import {
   User,
   Mail,
@@ -50,32 +51,42 @@ const SignupForm = ({ role }) => {
         description: "Password and Confirm Password must be the same.",
       });
 
-      return;
-    }
+try {
 
-    setLoading(true);
+  // Create Firebase User
+  const user = await signup(
+    formData.email,
+    formData.password,
+    formData.fullName
+  );
 
-    try {
+  console.log("Firebase User:", user);
 
-      // Create Firebase User
-      const user = await signup(
-        formData.email,
-        formData.password,
-        formData.fullName
-      );
+  // Save user in PostgreSQL
+  await createUser({
+    firebase_uid: user.uid,
+    role,
+    full_name: formData.fullName,
+    email: formData.email,
+    phone: formData.phone,
+  });
 
-      console.log("Firebase User:", user);
+  alert("Account created successfully!");
 
-      toast.success("Account Created Successfully", {
-        description:
-          "Welcome to ECG AI Analyzer. Redirecting to Login...",
-      });
+  navigate("/");
 
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
+} catch (error) {
 
-    } catch (error) {
+  console.error(error);
+
+  alert(getFirebaseError(error.code));
+
+} finally {
+
+  setLoading(false);
+
+}
+};
 
       console.error(error);
 
