@@ -1,16 +1,27 @@
 from fastapi import FastAPI
-from app.api.v1.endpoints.users import router as user_router
-from app.database.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
-# Import models so SQLAlchemy knows about them
+
+from app.database.database import engine, Base
+
+# Import all models
 from app.models import *
 
+# Import routers
+from app.api.v1.endpoints.users import router as user_router
+from app.api.v1.endpoints.patients import router as patient_router
+from app.api.v1.endpoints.doctors import router as doctor_router
+from app.api.v1.endpoints.ecg import router as ecg_router
+
+
+# Create database tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="ECG AI Analyzer API",
     version="1.0.0"
 )
+
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -20,13 +31,36 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register routers
+# Register routers
 app.include_router(
     user_router,
     prefix="/users",
     tags=["Users"]
 )
+
+app.include_router(
+    patient_router,
+    prefix="/patients",
+    tags=["Patients"]
+)
+
+app.include_router(
+    doctor_router,
+    prefix="/doctors",
+    tags=["Doctors"]
+)
+
+app.include_router(
+    ecg_router,
+    prefix="/ecg",
+    tags=["ECG"]
+)
+
+
 @app.get("/")
 def root():
     return {
-        "message": "ECG AI Backend Running Successfully "
+        "message": "ECG AI Backend Running Successfully"
     }

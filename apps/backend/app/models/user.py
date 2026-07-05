@@ -1,11 +1,9 @@
-from sqlalchemy import String, Integer, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
-
 from datetime import datetime
 
-from app.database.database import Base
-from typing import Literal
+from sqlalchemy import String, Integer, DateTime
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.database.database import Base
 
 
 class User(Base):
@@ -39,7 +37,7 @@ class User(Base):
         nullable=False
     )
 
-    phone: Mapped[str] = mapped_column(
+    phone: Mapped[str | None] = mapped_column(
         String(20),
         nullable=True
     )
@@ -47,4 +45,35 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow
+    )
+
+    # ---------------- Relationships ---------------- #
+
+    patient_profile = relationship(
+        "PatientProfile",
+        back_populates="user",
+        uselist=False
+    )
+
+    doctor_profile = relationship(
+        "DoctorProfile",
+        back_populates="user",
+        uselist=False
+    )
+
+    ecg_files = relationship(
+        "ECGFile",
+        foreign_keys="ECGFile.patient_id",
+        back_populates="patient"
+    )
+
+    uploaded_files = relationship(
+        "ECGFile",
+        foreign_keys="ECGFile.uploaded_by",
+        back_populates="uploader"
+    )
+
+    predictions = relationship(
+        "ECGPrediction",
+        back_populates="patient"
     )
