@@ -1,5 +1,7 @@
 import "./Sidebar.css";
 
+import { NavLink } from "react-router-dom";
+
 import {
   FaHeartbeat,
   FaThLarge,
@@ -25,11 +27,8 @@ const Sidebar = () => {
         </div>
 
         <div>
-
           <h2>ECG AI</h2>
-
           <p>Analyzer</p>
-
         </div>
 
       </div>
@@ -42,61 +41,75 @@ const Sidebar = () => {
 
       <nav className="sidebar-menu">
 
-        <button className="menu-item active">
-
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaThLarge />
-
           Dashboard
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/upload-ecg"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaUpload />
-
           Upload ECG
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/signal-analysis"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaWaveSquare />
-
           Signal Analysis
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/ai-prediction"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaRobot />
-
           AI Prediction
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/patient-history"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaUserInjured />
-
           Patient History
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/reports"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaFileMedical />
-
           Reports
+        </NavLink>
 
-        </button>
-
-        <button className="menu-item">
-
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
           <FaCog />
-
           Settings
-
-        </button>
+        </NavLink>
 
       </nav>
 
@@ -105,17 +118,12 @@ const Sidebar = () => {
       <div className="doctor-card">
 
         <div className="avatar">
-
           JB
-
         </div>
 
         <div>
-
           <h4>Dr. Jeet Biswas</h4>
-
           <p>Cardiologist</p>
-
         </div>
 
       </div>

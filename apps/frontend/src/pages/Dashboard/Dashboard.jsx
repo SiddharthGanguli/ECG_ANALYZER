@@ -5,7 +5,7 @@ import Header from "../../components/dashboard/Header/Header";
 import WelcomeSection from "../../components/dashboard/WelcomeSection/WelcomeSection";
 import StatsCards from "../../components/dashboard/StatsCards/StatsCards";
 import AnalyticsSection from "../../components/dashboard/AnalyticsSection/AnalyticsSection";
-
+import RecentPatients from "../../components/dashboard/RecentPatients/RecentPatients";
 const Dashboard = () => {
   return (
     <div className="dashboard">
@@ -30,6 +30,8 @@ const Dashboard = () => {
 
           {/* Weekly Analysis + Condition Distribution */}
           <AnalyticsSection />
+
+          <RecentPatients />
 
         </div>
 

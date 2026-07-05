@@ -25,7 +25,7 @@ const WelcomeSection = () => {
         <h1>
           Welcome back,
           {" "}
-          Dr. {user?.displayName || "Doctor"} 👋
+          Dr. {user?.displayName || "Doctor"} 
         </h1>
 
         <p>

@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import UploadECG from "./pages/UploadECG/UploadECG";
 
 function App() {
   return (
@@ -32,6 +33,12 @@ function App() {
         <Route
           path="/dashboard"
           element={<Dashboard />}
+        />
+
+        {/* Upload ECG */}
+        <Route
+          path="/upload-ecg"
+          element={<UploadECG />}
         />
 
       </Routes>
