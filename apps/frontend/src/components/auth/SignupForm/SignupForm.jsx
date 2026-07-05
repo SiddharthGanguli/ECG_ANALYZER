@@ -41,65 +41,53 @@ const SignupForm = ({ role }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Password Validation
-    if (formData.password !== formData.confirmPassword) {
+  setLoading(true);
 
-      toast.error("Password Mismatch", {
-        description: "Password and Confirm Password must be the same.",
-      });
+  // Password Validation
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Password Mismatch", {
+      description: "Password and Confirm Password must be the same.",
+    });
 
-try {
+    setLoading(false);
+    return;
+  }
 
-  // Create Firebase User
-  const user = await signup(
-    formData.email,
-    formData.password,
-    formData.fullName
-  );
+  try {
+    // Create Firebase User
+    const user = await signup(
+      formData.email,
+      formData.password,
+      formData.fullName
+    );
 
-  console.log("Firebase User:", user);
+    console.log("Firebase User:", user);
 
-  // Save user in PostgreSQL
-  await createUser({
-    firebase_uid: user.uid,
-    role,
-    full_name: formData.fullName,
-    email: formData.email,
-    phone: formData.phone,
-  });
+    // Save user in PostgreSQL
+    await createUser({
+      firebase_uid: user.uid,
+      role,
+      full_name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+    });
 
-  alert("Account created successfully!");
+    toast.success("Account created successfully!");
 
-  navigate("/");
+    navigate("/");
+  } catch (error) {
+    console.error(error);
 
-} catch (error) {
-
-  console.error(error);
-
-  alert(getFirebaseError(error.code));
-
-} finally {
-
-  setLoading(false);
-
-}
+    toast.error("Registration Failed", {
+      description: getFirebaseError(error.code),
+    });
+  } finally {
+    setLoading(false);
+  }
 };
-
-      console.error(error);
-
-      toast.error("Registration Failed", {
-        description: getFirebaseError(error.code),
-      });
-
-    } finally {
-
-      setLoading(false);
-
-    }
-  };
 
   return (
     <form
@@ -236,6 +224,6 @@ try {
 
     </form>
   );
-};
 
+};
 export default SignupForm;
