@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/authService";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
+import { getUserByUid } from "../../../services/userService";
 import {
   Mail,
   Lock,
@@ -12,7 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const LoginForm = () => {
+const LoginForm = ({ role }) => {
 
   const navigate = useNavigate();
 
@@ -39,16 +40,41 @@ const handleSubmit = async (e) => {
 
   try {
 
-    const user = await login(
+    // Login with Firebase
+    const firebaseUser = await login(
       formData.email,
       formData.password
     );
 
-    console.log("Logged In User:", user);
+    console.log("Firebase User:", firebaseUser);
+
+    // Get user from PostgreSQL
+    const dbUser = await getUserByUid(firebaseUser.uid);
+
+    console.log("Database User:", dbUser);
+
+    // Check selected role
+    if (dbUser.role !== role) {
+
+      alert(
+        `This account is registered as a ${dbUser.role}.`
+      );
+
+      return;
+    }
 
     alert("Login Successful!");
 
-    navigate("/dashboard");
+    // Navigate based on role
+    if (dbUser.role === "doctor") {
+
+      navigate("/doctor/dashboard");
+
+    } else {
+
+      navigate("/patient/dashboard");
+
+    }
 
   } catch (error) {
 
@@ -56,13 +82,12 @@ const handleSubmit = async (e) => {
 
     alert(getFirebaseError(error.code));
 
-} finally {
+  } finally {
 
     setLoading(false);
 
   }
 };
-
   return (
     <form
   className="login-form"
