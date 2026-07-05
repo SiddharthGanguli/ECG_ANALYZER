@@ -19,3 +19,10 @@ def create_user(db: Session, user: UserCreate):
     db.refresh(db_user)
 
     return db_user
+
+def get_user_by_uid(db: Session, firebase_uid: str):
+    return (
+        db.query(User)
+        .filter(User.firebase_uid == firebase_uid)
+        .first()
+    )
