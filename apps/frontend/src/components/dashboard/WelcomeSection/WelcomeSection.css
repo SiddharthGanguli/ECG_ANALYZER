@@ -1,0 +1,79 @@
+.welcome-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.welcome-text h1{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    color:#1e293b;
+
+    margin-bottom:8px;
+
+}
+
+.welcome-text p{
+
+    font-size:17px;
+
+    color:#64748b;
+
+}
+
+.welcome-text span{
+
+    color:#2563eb;
+
+    font-weight:500;
+
+}
+
+/* Upload Button */
+
+.upload-btn{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:15px 26px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.upload-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+
+}

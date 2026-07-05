@@ -1,0 +1,161 @@
+.header{
+
+    height:80px;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+/* Left */
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.breadcrumb{
+
+    color:#64748b;
+
+    font-size:15px;
+
+}
+
+.divider{
+
+    color:#cbd5e1;
+
+}
+
+.current-page{
+
+    font-weight:600;
+
+    color:#1e293b;
+
+}
+
+/* Right */
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+/* Search */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:260px;
+
+    padding:12px 18px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    width:100%;
+
+}
+
+/* Notification */
+
+.notification-btn{
+
+    position:relative;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    width:9px;
+
+    height:9px;
+
+    background:#ef4444;
+
+    border-radius:50%;
+
+    top:11px;
+
+    right:11px;
+
+}
+
+/* Avatar */
+
+.profile-avatar{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:700;
+
+}

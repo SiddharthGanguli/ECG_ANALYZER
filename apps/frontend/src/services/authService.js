@@ -46,7 +46,17 @@ export const logout = async () => {
 };
 
 export const resetPassword = async (email) => {
-  await sendPasswordResetEmail(auth, email);
+
+  const actionCodeSettings = {
+    url: "http://localhost:5173/reset-password",
+    handleCodeInApp: true,
+  };
+
+  await sendPasswordResetEmail(
+    auth,
+    email,
+    actionCodeSettings
+  );
 };
 
 export const getCurrentUser = () => auth.currentUser;
