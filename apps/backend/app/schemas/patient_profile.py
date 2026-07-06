@@ -1,8 +1,10 @@
-from datetime import date
+from datetime import date, datetime
 from pydantic import BaseModel
 
 
 class PatientProfileBase(BaseModel):
+
+    patient_name: str | None = None
     date_of_birth: date | None = None
     gender: str | None = None
     blood_group: str | None = None
@@ -22,6 +24,7 @@ class PatientProfileUpdate(PatientProfileBase):
 class PatientProfileResponse(PatientProfileBase):
     id: int
     user_id: int
+    created_at: datetime
 
     class Config:
         from_attributes = True

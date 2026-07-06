@@ -4,6 +4,7 @@ from app.crud.patient_profile import (
     create_patient_profile,
     get_patient_profile,
     update_patient_profile,
+    get_recent_patients,
 )
 
 from app.schemas.patient_profile import (
@@ -41,3 +42,7 @@ def update_profile(
         user_id,
         profile,
     )
+def get_recent_profiles(
+    db: Session
+):
+    return get_recent_patients(db)

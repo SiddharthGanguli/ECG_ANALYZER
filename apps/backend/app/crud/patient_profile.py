@@ -13,14 +13,15 @@ def create_patient_profile(
 ) -> PatientProfile:
 
     db_profile = PatientProfile(
-        user_id=profile.user_id,
-        date_of_birth=profile.date_of_birth,
-        gender=profile.gender,
-        blood_group=profile.blood_group,
-        height=profile.height,
-        weight=profile.weight,
-        emergency_contact=profile.emergency_contact,
-    )
+    user_id=profile.user_id,
+    patient_name=profile.patient_name,
+    date_of_birth=profile.date_of_birth,
+    gender=profile.gender,
+    blood_group=profile.blood_group,
+    height=profile.height,
+    weight=profile.weight,
+    emergency_contact=profile.emergency_contact,
+)
 
     db.add(db_profile)
     db.commit()
@@ -76,3 +77,10 @@ def delete_patient_profile(
     db.commit()
 
     return profile
+def get_recent_patients(db: Session):
+
+    return (
+        db.query(PatientProfile)
+        .order_by(PatientProfile.created_at.desc())
+        .all()
+    )
