@@ -1,27 +1,21 @@
 import "./PatientForm.css";
 
-import { useState } from "react";
-
 import {
-  FaUser,
   FaIdCard,
-  FaBirthdayCake,
-  FaNotesMedical,
+  FaUser,
+  FaCalendarAlt,
+  FaVenusMars,
+  FaTint,
+  FaRulerVertical,
+  FaWeight,
+  FaPhoneAlt,
 } from "react-icons/fa";
 
-const PatientForm = () => {
-
-  const [patient, setPatient] = useState({
-    name: "",
-    patientId: "",
-    age: "",
-    lead: "",
-    notes: "",
-  });
+const PatientForm = ({ patientData, setPatientData }) => {
 
   const handleChange = (e) => {
-    setPatient({
-      ...patient,
+    setPatientData({
+      ...patientData,
       [e.target.name]: e.target.value,
     });
   };
@@ -32,12 +26,30 @@ const PatientForm = () => {
       <h2>Patient Information</h2>
 
       <p className="patient-subtitle">
-        Enter patient details before ECG analysis.
+        Verify patient information before ECG analysis.
       </p>
 
-      {/* Full Name */}
+      {/* User ID */}
 
-      <label>Full Name</label>
+      <label>User ID</label>
+
+      <div className="input-box">
+
+        <FaIdCard />
+
+        <input
+          type="number"
+          name="user_id"
+          placeholder="Enter User ID"
+          value={patientData.user_id}
+          onChange={handleChange}
+        />
+
+      </div>
+
+      {/* Patient Name */}
+
+      <label>Patient Name</label>
 
       <div className="input-box">
 
@@ -45,88 +57,131 @@ const PatientForm = () => {
 
         <input
           type="text"
-          name="name"
-          placeholder="Enter patient name"
-          value={patient.name}
+          name="patient_name"
+          placeholder="Enter Patient Name"
+          value={patientData.patient_name}
           onChange={handleChange}
         />
 
       </div>
 
-      {/* Patient ID */}
+      {/* Date of Birth */}
 
-      <label>Patient ID</label>
+      <label>Date of Birth</label>
 
       <div className="input-box">
 
-        <FaIdCard />
+        <FaCalendarAlt />
 
         <input
-          type="text"
-          name="patientId"
-          placeholder="Enter patient ID"
-          value={patient.patientId}
+          type="date"
+          name="date_of_birth"
+          value={patientData.date_of_birth}
           onChange={handleChange}
         />
 
       </div>
 
-      {/* Age */}
+      {/* Gender */}
 
-      <label>Age</label>
+      <label>Gender</label>
 
       <div className="input-box">
 
-        <FaBirthdayCake />
+        <FaVenusMars />
+
+        <select
+          name="gender"
+          value={patientData.gender}
+          onChange={handleChange}
+        >
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+
+      </div>
+
+      {/* Blood Group */}
+
+      <label>Blood Group</label>
+
+      <div className="input-box">
+
+        <FaTint />
+
+        <select
+          name="blood_group"
+          value={patientData.blood_group}
+          onChange={handleChange}
+        >
+          <option value="">Select Blood Group</option>
+
+          <option>A+</option>
+          <option>A-</option>
+          <option>B+</option>
+          <option>B-</option>
+          <option>AB+</option>
+          <option>AB-</option>
+          <option>O+</option>
+          <option>O-</option>
+
+        </select>
+
+      </div>
+
+      {/* Height */}
+
+      <label>Height (cm)</label>
+
+      <div className="input-box">
+
+        <FaRulerVertical />
 
         <input
           type="number"
-          name="age"
-          placeholder="Enter age"
-          value={patient.age}
+          name="height"
+          placeholder="Enter Height"
+          value={patientData.height}
           onChange={handleChange}
         />
 
       </div>
 
-      {/* Lead */}
+      {/* Weight */}
 
-      <label>Lead Configuration</label>
+      <label>Weight (kg)</label>
 
-      <select
-        name="lead"
-        value={patient.lead}
-        onChange={handleChange}
-      >
-        <option value="">
-          Select Lead
-        </option>
+      <div className="input-box">
 
-        <option>Lead I</option>
+        <FaWeight />
 
-        <option>Lead II</option>
-
-        <option>Lead III</option>
-
-        <option>12 Lead ECG</option>
-
-      </select>
-
-      {/* Notes */}
-
-      <label>Clinical Notes</label>
-
-      <div className="textarea-box">
-
-        <FaNotesMedical />
-
-        <textarea
-          name="notes"
-          rows="5"
-          placeholder="Add clinical notes..."
-          value={patient.notes}
+        <input
+          type="number"
+          name="weight"
+          placeholder="Enter Weight"
+          value={patientData.weight}
           onChange={handleChange}
-        ></textarea>
+        />
+
+      </div>
+
+      {/* Emergency Contact */}
+
+      <label>Emergency Contact</label>
+
+      <div className="input-box">
+
+        <FaPhoneAlt />
+
+        <input
+          type="text"
+          name="emergency_contact"
+          placeholder="Enter Emergency Contact"
+          value={patientData.emergency_contact}
+          onChange={handleChange}
+        />
 
       </div>
 

@@ -8,7 +8,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 
-const UploadArea = () => {
+const UploadArea = ({ onAnalyze }) => {
 
   const fileInputRef = useRef(null);
 
@@ -118,7 +118,10 @@ const UploadArea = () => {
 
       {/* Analyze */}
 
-      <button className="analyze-btn">
+      <button
+        className="analyze-btn"
+        onClick={onAnalyze}
+      >
 
         <FaFileMedical />
 

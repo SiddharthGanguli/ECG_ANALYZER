@@ -13,10 +13,10 @@ from app.services.patient_service import (
     create_profile,
     get_profile,
     update_profile,
+    get_recent_profiles,
 )
 
 router = APIRouter(
-    prefix="/patients",
     tags=["Patients"],
 )
 
@@ -50,7 +50,13 @@ def get_patient(
 
     return patient
 
-
+@router.get(
+    "/recent",
+)
+def recent_patients(
+    db: Session = Depends(get_db),
+):
+    return get_recent_profiles(db)
 @router.put(
     "/profile/{user_id}",
     response_model=PatientProfileResponse,
