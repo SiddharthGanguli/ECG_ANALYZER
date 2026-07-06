@@ -24,3 +24,5 @@ src/ecg_analyzer/pipelines/data_ingestion_pipeline.py
 src/ecg_analyzer/pipelines/data_validation_pipeline.py
 src/ecg_analyzer/utils/__init__.py
 src/ecg_analyzer/utils/common.py
+tests/test_logger.py
+tests/test_utils.py

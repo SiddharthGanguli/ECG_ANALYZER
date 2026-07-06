@@ -5,8 +5,8 @@ stages:
     deps:
     - path: configs/config.yaml
       hash: md5
-      md5: 7992a80808b915f27de458f9c27cf2ce
-      size: 221
+      md5: 33e2b026e1acef8f1ff5538eab3f9759
+      size: 547
     - path: data/raw/mitbih_test.csv
       hash: md5
       md5: 40a06a9d63289349aa2d9f8dfa41d3da
@@ -21,12 +21,12 @@ stages:
       size: 1464
     - path: src/ecg_analyzer/configuration/configuration.py
       hash: md5
-      md5: c5e20f30af16d306048deb13447a9a14
-      size: 1086
+      md5: 56c4276af71e7feae6afd90d053c5f26
+      size: 2093
     - path: src/ecg_analyzer/entity/config_entity.py
       hash: md5
-      md5: ed937c73175e18d2ffe6aca71fe8344d
-      size: 224
+      md5: 9e60bdbc5c521b73f448c1a79e572360
+      size: 493
     - path: src/ecg_analyzer/pipelines/data_ingestion_pipeline.py
       hash: md5
       md5: babe25351a158a613f2a6025334f7327
@@ -37,3 +37,37 @@ stages:
       md5: cf9ce0260fb198dd4b346b9b71e93415.dir
       size: 514396200
       nfiles: 2
+  data_validation:
+    cmd: python -m ecg_analyzer.pipelines.data_validation_pipeline
+    deps:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
+    - path: configs/config.yaml
+      hash: md5
+      md5: 33e2b026e1acef8f1ff5538eab3f9759
+      size: 547
+    - path: src/ecg_analyzer/components/data_validation.py
+      hash: md5
+      md5: f738846a0c7a9588efe90bc665aaf6d8
+      size: 2640
+    - path: src/ecg_analyzer/configuration/configuration.py
+      hash: md5
+      md5: 56c4276af71e7feae6afd90d053c5f26
+      size: 2093
+    - path: src/ecg_analyzer/entity/config_entity.py
+      hash: md5
+      md5: 9e60bdbc5c521b73f448c1a79e572360
+      size: 493
+    - path: src/ecg_analyzer/pipelines/data_validation_pipeline.py
+      hash: md5
+      md5: f049f79a05be0959e42edb3592d1c308
+      size: 857
+    outs:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: 1f2d956f0f7040e0f4e3d062f0786a5b.dir
+      size: 23
+      nfiles: 1
