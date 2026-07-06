@@ -24,3 +24,20 @@ models/*
 !models/.gitkeep
 
 /artifacts/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+venv311/
+myenv/
+.venv/
+
+# macOS
+.DS_Store
+
+# DVC cache
+.dvc/cache/
