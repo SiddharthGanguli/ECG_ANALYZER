@@ -19,7 +19,6 @@ const Sidebar = () => {
     <aside className="sidebar">
 
       {/* Logo */}
-
       <div className="sidebar-logo">
 
         <div className="logo-icon">
@@ -34,7 +33,6 @@ const Sidebar = () => {
       </div>
 
       {/* Menu */}
-
       <div className="menu-title">
         MAIN MENU
       </div>
@@ -42,7 +40,7 @@ const Sidebar = () => {
       <nav className="sidebar-menu">
 
         <NavLink
-          to="/dashboard"
+          to="/doctor/dashboard"
           className={({ isActive }) =>
             isActive ? "menu-item active" : "menu-item"
           }
@@ -52,7 +50,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/upload-ecg"
+          to="/doctor/upload-ecg"
           className={({ isActive }) =>
             isActive ? "menu-item active" : "menu-item"
           }
@@ -61,51 +59,45 @@ const Sidebar = () => {
           Upload ECG
         </NavLink>
 
+        {/* These pages will be created later */}
+
         <NavLink
-          to="/signal-analysis"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
+          to="#"
+          className="menu-item"
         >
           <FaWaveSquare />
           Signal Analysis
         </NavLink>
 
         <NavLink
-          to="/ai-prediction"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
+          to="#"
+          className="menu-item"
         >
           <FaRobot />
           AI Prediction
         </NavLink>
 
         <NavLink
-          to="/patient-history"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
-        >
-          <FaUserInjured />
-          Patient History
-        </NavLink>
+  to="/doctor/patient-history"
+  className={({ isActive }) =>
+    isActive ? "menu-item active" : "menu-item"
+  }
+>
+  <FaUserInjured />
+  Patient History
+</NavLink>
 
         <NavLink
-          to="/reports"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
+          to="#"
+          className="menu-item"
         >
           <FaFileMedical />
           Reports
         </NavLink>
 
         <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
+          to="#"
+          className="menu-item"
         >
           <FaCog />
           Settings
@@ -114,7 +106,6 @@ const Sidebar = () => {
       </nav>
 
       {/* Doctor */}
-
       <div className="doctor-card">
 
         <div className="avatar">
