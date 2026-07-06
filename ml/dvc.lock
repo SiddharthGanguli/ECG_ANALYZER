@@ -1,0 +1,39 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m ecg_analyzer.pipelines.data_ingestion_pipeline
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 7992a80808b915f27de458f9c27cf2ce
+      size: 221
+    - path: data/raw/mitbih_test.csv
+      hash: md5
+      md5: 40a06a9d63289349aa2d9f8dfa41d3da
+      size: 102892400
+    - path: data/raw/mitbih_train.csv
+      hash: md5
+      md5: 7c3ef5146d05335606917778cc899b83
+      size: 411503800
+    - path: src/ecg_analyzer/components/data_ingestion.py
+      hash: md5
+      md5: 5293f941686e93eed8bdbdb85d566fa1
+      size: 1464
+    - path: src/ecg_analyzer/configuration/configuration.py
+      hash: md5
+      md5: c5e20f30af16d306048deb13447a9a14
+      size: 1086
+    - path: src/ecg_analyzer/entity/config_entity.py
+      hash: md5
+      md5: ed937c73175e18d2ffe6aca71fe8344d
+      size: 224
+    - path: src/ecg_analyzer/pipelines/data_ingestion_pipeline.py
+      hash: md5
+      md5: babe25351a158a613f2a6025334f7327
+      size: 690
+    outs:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
