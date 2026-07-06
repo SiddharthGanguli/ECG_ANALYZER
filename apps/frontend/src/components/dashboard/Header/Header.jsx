@@ -1,12 +1,73 @@
 import "./Header.css";
 
+import { useState } from "react";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
 import {
   FaSearch,
   FaBell,
 } from "react-icons/fa";
 
+import DoctorProfilePopup from "../../profile/DoctorProfilePopup";
+
 const Header = () => {
+
+  const [search, setSearch] = useState("");
+  const [showProfile, setShowProfile] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSearch = (e) => {
+
+    if (e.key === "Enter" && search.trim() !== "") {
+
+      navigate(
+        `/doctor/patient-history?search=${encodeURIComponent(search)}`
+      );
+
+    }
+
+  };
+
+  // Dynamic Page Name
+  const getPageName = () => {
+
+    switch (location.pathname) {
+
+      case "/doctor/dashboard":
+        return "Dashboard";
+
+      case "/doctor/upload-ecg":
+        return "Upload ECG";
+
+      case "/doctor/patient-history":
+        return "Patient History";
+
+      case "/doctor/signal-analysis":
+        return "Signal Analysis";
+
+      case "/doctor/ai-prediction":
+        return "AI Prediction";
+
+      case "/doctor/reports":
+        return "Reports";
+
+      case "/doctor/settings":
+        return "Settings";
+
+      default:
+        return "Dashboard";
+
+    }
+
+  };
+
   return (
+
     <header className="header">
 
       {/* Left */}
@@ -14,21 +75,15 @@ const Header = () => {
       <div className="header-left">
 
         <span className="breadcrumb">
-
           ECG AI
-
         </span>
 
         <span className="divider">
-
           /
-
         </span>
 
         <span className="current-page">
-
-          Dashboard
-
+          {getPageName()}
         </span>
 
       </div>
@@ -46,6 +101,9 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search patients..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleSearch}
           />
 
         </div>
@@ -60,9 +118,12 @@ const Header = () => {
 
         </button>
 
-        {/* Doctor */}
+        {/* Profile */}
 
-        <div className="profile">
+        <div
+          className="profile"
+          onClick={() => setShowProfile(true)}
+        >
 
           <div className="profile-avatar">
 
@@ -74,8 +135,17 @@ const Header = () => {
 
       </div>
 
+      {/* Doctor Profile Popup */}
+
+      <DoctorProfilePopup
+        isOpen={showProfile}
+        onClose={() => setShowProfile(false)}
+      />
+
     </header>
+
   );
+
 };
 
 export default Header;

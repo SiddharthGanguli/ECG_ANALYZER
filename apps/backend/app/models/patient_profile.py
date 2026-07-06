@@ -27,6 +27,10 @@ class PatientProfile(Base):
         unique=True,
         nullable=False
     )
+    patient_name: Mapped[str | None] = mapped_column(
+    String(100),
+    nullable=True
+)
 
     date_of_birth: Mapped[date | None] = mapped_column(
         Date,
