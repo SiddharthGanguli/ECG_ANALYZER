@@ -5,6 +5,7 @@ import yaml
 from ecg_analyzer.entity.entity import (
     DataIngestionConfig,
     DataValidationConfig,
+    DataPreprocessingConfig
 )
 
 
@@ -62,4 +63,54 @@ class ConfigManager:
                 int(value)
                 for value in validation["allowed_target_classes"]
             ],
+        )
+    
+
+
+    
+    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
+
+        preprocessing = self.config["data_preprocessing"]
+
+        root_dir = Path(preprocessing["root_dir"])
+
+        raw_data_dir = Path(preprocessing["raw_data_dir"])
+
+        processed_data_dir = Path(preprocessing["processed_data_dir"])
+
+        os.makedirs(root_dir, exist_ok=True)
+        os.makedirs(processed_data_dir, exist_ok=True)
+
+        return DataPreprocessingConfig(
+            root_dir=root_dir,
+
+            raw_data_dir=raw_data_dir,
+            train_file_name=preprocessing["train_file_name"],
+            test_file_name=preprocessing["test_file_name"],
+
+            processed_data_dir=processed_data_dir,
+
+            train_features_file=preprocessing["train_features_file"],
+            train_labels_file=preprocessing["train_labels_file"],
+
+            test_features_file=preprocessing["test_features_file"],
+            test_labels_file=preprocessing["test_labels_file"],
+
+            remove_duplicates=bool(preprocessing["remove_duplicates"]),
+            check_missing_values=bool(preprocessing["check_missing_values"]),
+            convert_dtype=bool(preprocessing["convert_dtype"]),
+
+            normalization_enabled=bool(
+                preprocessing["normalization"]["enabled"]
+            ),
+
+            normalization_method=preprocessing["normalization"]["method"],
+
+            reshape_enabled=bool(
+                preprocessing["reshape"]["enabled"]
+            ),
+
+            channels=int(
+                preprocessing["reshape"]["channels"]
+            ),
         )

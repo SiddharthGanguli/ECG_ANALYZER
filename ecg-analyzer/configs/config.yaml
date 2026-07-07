@@ -20,3 +20,33 @@ data_validation:
   expected_number_of_columns: 188
   target_column_index: 187
   allowed_target_classes: [0, 1, 2, 3, 4]
+
+
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+
+  raw_data_dir: artifacts/data_ingestion/raw
+
+  train_file_name: mitbih_train.csv
+  test_file_name: mitbih_test.csv
+
+  processed_data_dir: artifacts/data_preprocessing/processed
+
+  train_features_file: X_train.npy
+  train_labels_file: y_train.npy
+
+  test_features_file: X_test.npy
+  test_labels_file: y_test.npy
+
+  remove_duplicates: true
+  check_missing_values: true
+  convert_dtype: true
+
+  normalization:
+    enabled: false
+    method: zscore
+
+  reshape:
+    enabled: true
+    channels: 1

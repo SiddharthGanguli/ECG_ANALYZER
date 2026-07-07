@@ -21,3 +21,34 @@ class DataValidationConfig:
     expected_number_of_columns: int
     target_column_index: int
     allowed_target_classes: list[int]
+
+@dataclass(frozen=True)
+class DataPreprocessingConfig:
+    root_dir: Path
+
+    # Input
+    raw_data_dir: Path
+    train_file_name: str
+    test_file_name: str
+
+    # Output
+    processed_data_dir: Path
+
+    train_features_file: str
+    train_labels_file: str
+
+    test_features_file: str
+    test_labels_file: str
+
+    # Preprocessing options
+    remove_duplicates: bool
+    check_missing_values: bool
+    convert_dtype: bool
+
+    # Normalization
+    normalization_enabled: bool
+    normalization_method: str
+
+    # Reshaping
+    reshape_enabled: bool
+    channels: int
