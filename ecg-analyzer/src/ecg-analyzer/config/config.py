@@ -5,7 +5,8 @@ import yaml
 from ecg_analyzer.entity.entity import (
     DataIngestionConfig,
     DataValidationConfig,
-    DataPreprocessingConfig
+    DataPreprocessingConfig,
+    ModelTrainingConfig
 )
 
 
@@ -113,4 +114,52 @@ class ConfigManager:
             channels=int(
                 preprocessing["reshape"]["channels"]
             ),
+        )
+    
+    def get_model_training_config(self) -> ModelTrainingConfig:
+
+        training = self.config.get("model_training")
+
+        if training is None:
+            raise ValueError("model_training section missing in config.yaml")
+
+        root_dir = Path(training["root_dir"])
+
+        processed_data_dir = Path(training["processed_data_dir"])
+
+        model_dir = Path(training["model_dir"])
+
+        os.makedirs(root_dir, exist_ok=True)
+        os.makedirs(model_dir, exist_ok=True)
+
+        return ModelTrainingConfig(
+
+            root_dir=root_dir,
+
+            processed_data_dir=processed_data_dir,
+
+            train_features_file=training["train_features_file"],
+            train_labels_file=training["train_labels_file"],
+
+            test_features_file=training["test_features_file"],
+            test_labels_file=training["test_labels_file"],
+
+            model_dir=model_dir,
+            model_name=training["model_name"],
+
+            epochs=int(training["epochs"]),
+            batch_size=int(training["batch_size"]),
+            learning_rate=float(training["learning_rate"]),
+
+            optimizer=training["optimizer"],
+            loss_function=training["loss_function"],
+
+            num_classes=int(training["num_classes"]),
+
+            input_size=int(training["input_size"]),
+            input_channels=int(training["input_channels"]),
+
+            dropout_rate=float(training["dropout_rate"]),
+
+            random_seed=int(training["random_seed"]),
         )

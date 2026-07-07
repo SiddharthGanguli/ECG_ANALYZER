@@ -52,3 +52,36 @@ class DataPreprocessingConfig:
     # Reshaping
     reshape_enabled: bool
     channels: int
+
+
+@dataclass(frozen=True)
+class ModelTrainingConfig:
+
+    root_dir: Path
+
+    processed_data_dir: Path
+
+    train_features_file: str
+    train_labels_file: str
+
+    test_features_file: str
+    test_labels_file: str
+
+    model_dir: Path
+    model_name: str
+
+    epochs: int
+    batch_size: int
+    learning_rate: float
+
+    optimizer: str
+    loss_function: str
+
+    num_classes: int
+
+    input_size: int
+    input_channels: int
+
+    dropout_rate: float
+
+    random_seed: int

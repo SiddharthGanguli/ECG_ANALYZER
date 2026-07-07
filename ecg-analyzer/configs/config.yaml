@@ -50,3 +50,39 @@ data_preprocessing:
   reshape:
     enabled: true
     channels: 1
+
+model_training:
+
+  root_dir: artifacts/model_training
+
+  processed_data_dir: artifacts/data_preprocessing/processed
+
+  train_features_file: X_train.npy
+  train_labels_file: y_train.npy
+
+  test_features_file: X_test.npy
+  test_labels_file: y_test.npy
+
+  model_dir: artifacts/model_training/model
+
+  model_name: cnn_lstm_model.pth
+
+  epochs: 30
+
+  batch_size: 256
+
+  learning_rate: 0.001
+
+  optimizer: adam
+
+  loss_function: cross_entropy
+
+  num_classes: 5
+
+  input_size: 187
+
+  input_channels: 1
+
+  dropout_rate: 0.5
+
+  random_seed: 42
