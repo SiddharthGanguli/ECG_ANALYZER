@@ -1,8 +1,15 @@
 stages:
-  training:
-    cmd: python main.py
+  data_ingestion:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+
     deps:
-      - src/
-      - data/
+      - configs/config.yaml
+      - data/raw/mitbih_train.csv
+      - data/raw/mitbih_test.csv
+      - src/ecg-analyzer/components/data_ingestion.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+
     outs:
-      - models/
+      - artifacts/data_ingestion/raw
