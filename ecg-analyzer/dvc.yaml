@@ -13,3 +13,17 @@ stages:
 
     outs:
       - artifacts/data_ingestion/raw
+
+  data_validation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+
+    deps:
+      - configs/config.yaml
+      - artifacts/data_ingestion/raw
+      - src/ecg-analyzer/components/data_validation.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+
+    outs:
+      - artifacts/data_validation

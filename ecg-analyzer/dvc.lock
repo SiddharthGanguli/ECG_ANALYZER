@@ -5,8 +5,8 @@ stages:
     deps:
     - path: configs/config.yaml
       hash: md5
-      md5: 77b459bd21f3eae22e0c1f613a9ae32b
-      size: 234
+      md5: 31796522f097972c593e53c72db9001b
+      size: 570
     - path: data/raw/mitbih_test.csv
       hash: md5
       md5: 40a06a9d63289349aa2d9f8dfa41d3da
@@ -21,19 +21,53 @@ stages:
       size: 1510
     - path: src/ecg-analyzer/config/config.py
       hash: md5
-      md5: 99bc6402f59017180ee1acfb5042d329
-      size: 1125
+      md5: fc430bc10749712cd6cdcbe74b73533b
+      size: 2130
     - path: src/ecg-analyzer/entity/entity.py
       hash: md5
-      md5: 7bbbb583d69abae5c5c3c2a5fea076ae
-      size: 237
+      md5: 0525a7f5de00a378a31afd1c2b68fdb2
+      size: 517
     - path: src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
       hash: md5
-      md5: d6e2f540880d71aa05ae8fe64ef0fd03
-      size: 707
+      md5: 55831f9bd2b6efba019f7899aabdb606
+      size: 783
     outs:
     - path: artifacts/data_ingestion/raw
       hash: md5
       md5: cf9ce0260fb198dd4b346b9b71e93415.dir
       size: 514396200
       nfiles: 2
+  data_validation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+    deps:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
+    - path: configs/config.yaml
+      hash: md5
+      md5: 31796522f097972c593e53c72db9001b
+      size: 570
+    - path: src/ecg-analyzer/components/data_validation.py
+      hash: md5
+      md5: e1442b41afc8d4e654e94f0bc9ee0fe3
+      size: 2723
+    - path: src/ecg-analyzer/config/config.py
+      hash: md5
+      md5: fc430bc10749712cd6cdcbe74b73533b
+      size: 2130
+    - path: src/ecg-analyzer/entity/entity.py
+      hash: md5
+      md5: 0525a7f5de00a378a31afd1c2b68fdb2
+      size: 517
+    - path: src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+      hash: md5
+      md5: 005f4956458bd889cb952603245fbdfc
+      size: 922
+    outs:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: 1f2d956f0f7040e0f4e3d062f0786a5b.dir
+      size: 23
+      nfiles: 1
