@@ -16,7 +16,9 @@
 
 }
 
-/* Left */
+/* ===========================
+   Left
+=========================== */
 
 .header-left{
 
@@ -25,6 +27,10 @@
     align-items:center;
 
     gap:12px;
+
+    flex:1;
+
+    min-width:0;
 
 }
 
@@ -44,13 +50,17 @@
 
 .current-page{
 
+    color:#1e293b;
+
     font-weight:600;
 
-    color:#1e293b;
+    white-space:nowrap;
 
 }
 
-/* Right */
+/* ===========================
+   Right
+=========================== */
 
 .header-right{
 
@@ -62,7 +72,9 @@
 
 }
 
-/* Search */
+/* ===========================
+   Desktop Search
+=========================== */
 
 .search-box{
 
@@ -94,9 +106,13 @@
 
     width:100%;
 
+    font-size:14px;
+
 }
 
-/* Notification */
+/* ===========================
+   Notification
+=========================== */
 
 .notification-btn{
 
@@ -136,7 +152,15 @@
 
 }
 
-/* Avatar */
+/* ===========================
+   Profile
+=========================== */
+
+.profile{
+
+    cursor:pointer;
+
+}
 
 .profile-avatar{
 
@@ -159,6 +183,188 @@
     font-weight:700;
 
 }
-.profile{
-    cursor: pointer;
+
+/* ===========================
+   Hamburger Button
+=========================== */
+
+.menu-btn{
+
+    display:none;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#1e293b;
+
+    font-size:18px;
+
+}
+
+/* ===========================
+   Mobile Search Icon
+=========================== */
+
+.mobile-search-btn{
+
+    display:none;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#1e293b;
+
+    font-size:17px;
+
+}
+
+/* ======================================================
+   TABLET
+====================================================== */
+
+@media (max-width:992px){
+
+    .menu-btn{
+
+        display:flex;
+
+    }
+
+}
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width:768px){
+
+    .header{
+
+        height:70px;
+
+        padding:0 14px;
+
+    }
+
+    .header-left{
+
+        gap:10px;
+
+    }
+
+    .breadcrumb{
+
+        font-size:15px;
+
+    }
+
+    .divider{
+
+        font-size:15px;
+
+    }
+
+    .current-page{
+
+        font-size:15px;
+
+    }
+
+    /* Hide Desktop Search */
+
+    .search-box{
+
+        display:none;
+
+    }
+
+    /* Show Mobile Search Icon */
+
+    .mobile-search-btn{
+
+        display:flex;
+
+    }
+
+    .header-right{
+
+        gap:8px;
+
+    }
+
+    .menu-btn,
+    .mobile-search-btn,
+    .notification-btn,
+    .profile-avatar{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+}
+
+/* ======================================================
+   EXTRA SMALL PHONES
+====================================================== */
+
+@media (max-width:480px){
+
+    .header{
+
+        padding:0 10px;
+
+    }
+
+    .breadcrumb{
+
+        display:none;
+
+    }
+
+    .divider{
+
+        display:none;
+
+    }
+
+    .current-page{
+
+        font-size:15px;
+
+    }
+
+    .header-right{
+
+        gap:6px;
+
+    }
+
 }

@@ -1,6 +1,6 @@
 import "./UploadArea.css";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 import {
   FaCloudUploadAlt,
@@ -8,11 +8,13 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 
-const UploadArea = ({ onAnalyze }) => {
+const UploadArea = ({
+  selectedFile,
+  setSelectedFile,
+  onAnalyze,
+}) => {
 
   const fileInputRef = useRef(null);
-
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleBrowse = () => {
     fileInputRef.current.click();
@@ -22,10 +24,15 @@ const UploadArea = ({ onAnalyze }) => {
 
     const file = e.target.files[0];
 
-    if (file) {
-      setSelectedFile(file);
+    if (!file) return;
+
+    // Only CSV allowed
+    if (file.type !== "text/csv" && !file.name.endsWith(".csv")) {
+      alert("Only CSV files are supported.");
+      return;
     }
 
+    setSelectedFile(file);
   };
 
   return (
@@ -35,12 +42,8 @@ const UploadArea = ({ onAnalyze }) => {
       <h2>ECG File Upload</h2>
 
       <p className="upload-subtitle">
-
         Upload ECG recording for AI analysis
-
       </p>
-
-      {/* Upload Area */}
 
       <div
         className="upload-dropzone"
@@ -51,9 +54,7 @@ const UploadArea = ({ onAnalyze }) => {
 
         <h3>Drag & Drop ECG File</h3>
 
-        <p>
-          or click to browse files
-        </p>
+        <p>or click to browse files</p>
 
         <button
           type="button"
@@ -66,13 +67,11 @@ const UploadArea = ({ onAnalyze }) => {
           type="file"
           hidden
           ref={fileInputRef}
-          accept=".csv,.mat,.dat,.hea"
+          accept=".csv"
           onChange={handleFileChange}
         />
 
       </div>
-
-      {/* Selected File */}
 
       {selectedFile && (
 
@@ -85,9 +84,7 @@ const UploadArea = ({ onAnalyze }) => {
             <h4>{selectedFile.name}</h4>
 
             <span>
-
-              {(selectedFile.size / 1024).toFixed(1)} KB
-
+              {(selectedFile.size / 1024).toFixed(2)} KB
             </span>
 
           </div>
@@ -95,8 +92,6 @@ const UploadArea = ({ onAnalyze }) => {
         </div>
 
       )}
-
-      {/* Supported */}
 
       <div className="supported-formats">
 
@@ -106,17 +101,9 @@ const UploadArea = ({ onAnalyze }) => {
 
           <span>CSV</span>
 
-          <span>MAT</span>
-
-          <span>DAT</span>
-
-          <span>HEA</span>
-
         </div>
 
       </div>
-
-      {/* Analyze */}
 
       <button
         className="analyze-btn"

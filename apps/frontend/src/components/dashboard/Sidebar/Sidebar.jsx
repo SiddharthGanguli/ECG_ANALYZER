@@ -6,131 +6,165 @@ import {
   FaHeartbeat,
   FaThLarge,
   FaUpload,
-  FaWaveSquare,
   FaRobot,
   FaUserInjured,
-  FaFileMedical,
-  FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
 
-const Sidebar = () => {
+const Sidebar = ({
+  sidebarOpen,
+  setSidebarOpen,
+}) => {
+
+  const closeSidebar = () => {
+
+    if (window.innerWidth <= 992) {
+      setSidebarOpen(false);
+    }
+
+  };
+
   return (
-    <aside className="sidebar">
+    <>
 
-      {/* Logo */}
-      <div className="sidebar-logo">
+      {/* Overlay */}
 
-        <div className="logo-icon">
-          <FaHeartbeat />
+      <div
+        className={`sidebar-overlay ${
+          sidebarOpen ? "show-overlay" : ""
+        }`}
+        onClick={() => setSidebarOpen(false)}
+      ></div>
+
+      {/* Sidebar */}
+
+      <aside
+        className={`sidebar ${
+          sidebarOpen ? "sidebar-open" : ""
+        }`}
+      >
+
+        {/* Logo */}
+
+        <div className="sidebar-logo">
+
+          <div className="logo-icon">
+            <FaHeartbeat />
+          </div>
+
+          <div>
+
+            <h2>ECG AI</h2>
+
+            <p>Analyzer</p>
+
+          </div>
+
         </div>
 
-        <div>
-          <h2>ECG AI</h2>
-          <p>Analyzer</p>
+        {/* Menu */}
+
+        <div className="menu-title">
+
+          MAIN MENU
+
         </div>
 
-      </div>
+        <nav className="sidebar-menu">
 
-      {/* Menu */}
-      <div className="menu-title">
-        MAIN MENU
-      </div>
+          {/* Dashboard */}
 
-      <nav className="sidebar-menu">
+          <NavLink
+            to="/doctor/dashboard"
+            end
+            onClick={closeSidebar}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            <FaThLarge />
+            Dashboard
+          </NavLink>
 
-        <NavLink
-          to="/doctor/dashboard"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
-        >
-          <FaThLarge />
-          Dashboard
-        </NavLink>
+          {/* Upload ECG */}
 
-        <NavLink
-          to="/doctor/upload-ecg"
-          className={({ isActive }) =>
-            isActive ? "menu-item active" : "menu-item"
-          }
-        >
-          <FaUpload />
-          Upload ECG
-        </NavLink>
+          <NavLink
+            to="/doctor/upload-ecg"
+            end
+            onClick={closeSidebar}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            <FaUpload />
+            Upload ECG
+          </NavLink>
 
-        {/* These pages will be created later */}
+          {/* AI Prediction */}
 
-        <NavLink
-          to="#"
-          className="menu-item"
-        >
-          <FaWaveSquare />
-          Signal Analysis
-        </NavLink>
+          <NavLink
+            to="/doctor/ai-prediction"
+            end
+            onClick={closeSidebar}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            <FaRobot />
+            AI Prediction
+          </NavLink>
 
-        <NavLink
-          to="#"
-          className="menu-item"
-        >
-          <FaRobot />
-          AI Prediction
-        </NavLink>
+          {/* Patient History */}
 
-        <NavLink
-  to="/doctor/patient-history"
-  className={({ isActive }) =>
-    isActive ? "menu-item active" : "menu-item"
-  }
->
-  <FaUserInjured />
-  Patient History
-</NavLink>
+          <NavLink
+            to="/doctor/patient-history"
+            end
+            onClick={closeSidebar}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            <FaUserInjured />
+            Patient History
+          </NavLink>
 
-        <NavLink
-          to="#"
-          className="menu-item"
-        >
-          <FaFileMedical />
-          Reports
-        </NavLink>
+        </nav>
 
-        <NavLink
-          to="#"
-          className="menu-item"
-        >
-          <FaCog />
-          Settings
-        </NavLink>
+        {/* Doctor */}
 
-      </nav>
+        <div className="doctor-card">
 
-      {/* Doctor */}
-      <div className="doctor-card">
+          <div className="avatar">
 
-        <div className="avatar">
-          JB
+            JB
+
+          </div>
+
+          <div>
+
+            <h4>Dr. Jeet Biswas</h4>
+
+            <p>Cardiologist</p>
+
+          </div>
+
         </div>
 
-        <div>
-          <h4>Dr. Jeet Biswas</h4>
-          <p>Cardiologist</p>
-        </div>
+        {/* Logout */}
 
-      </div>
+        <button className="logout-btn">
 
-      {/* Logout */}
+          <FaSignOutAlt />
 
-      <button className="logout-btn">
+          Logout
 
-        <FaSignOutAlt />
+        </button>
 
-        Logout
+      </aside>
 
-      </button>
-
-    </aside>
+    </>
   );
+
 };
 
 export default Sidebar;

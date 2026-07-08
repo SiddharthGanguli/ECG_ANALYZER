@@ -14,6 +14,7 @@ const HistoryTable = ({ searchTerm }) => {
   }, []);
 
   const loadPatients = async () => {
+
     try {
 
       const data = await getPatientHistory();
@@ -25,9 +26,11 @@ const HistoryTable = ({ searchTerm }) => {
       console.error(error);
 
     }
+
   };
 
   // Search Filter
+
   const filteredPatients = patients.filter((patient) => {
 
     const patientName = (patient.patient_name || "").toLowerCase();
@@ -37,8 +40,11 @@ const HistoryTable = ({ searchTerm }) => {
     const search = searchTerm.toLowerCase();
 
     return (
+
       patientName.includes(search) ||
+
       userId.includes(search)
+
     );
 
   });
@@ -46,6 +52,10 @@ const HistoryTable = ({ searchTerm }) => {
   return (
 
     <div className="history-table-card">
+
+      {/* ===========================
+          Desktop Table
+      =========================== */}
 
       <table className="history-table">
 
@@ -85,7 +95,9 @@ const HistoryTable = ({ searchTerm }) => {
                   color: "#64748b",
                 }}
               >
+
                 No patient found.
+
               </td>
 
             </tr>
@@ -96,15 +108,9 @@ const HistoryTable = ({ searchTerm }) => {
 
               <tr key={patient.id}>
 
-                {/* User ID */}
-
                 <td>{patient.user_id}</td>
 
-                {/* Patient Name */}
-
                 <td>{patient.patient_name || "--"}</td>
-
-                {/* Date */}
 
                 <td>
 
@@ -114,15 +120,11 @@ const HistoryTable = ({ searchTerm }) => {
 
                 </td>
 
-                {/* AI Prediction (Later) */}
-
                 <td>--</td>
 
                 <td>--</td>
 
                 <td>--</td>
-
-                {/* Action */}
 
                 <td>
 
@@ -145,6 +147,103 @@ const HistoryTable = ({ searchTerm }) => {
         </tbody>
 
       </table>
+
+      {/* ===========================
+          Mobile Cards
+      =========================== */}
+
+      <div className="mobile-history">
+
+        {filteredPatients.length === 0 ? (
+
+          <div
+            style={{
+              textAlign: "center",
+              padding: "30px",
+              color: "#64748b",
+            }}
+          >
+
+            No patient found.
+
+          </div>
+
+        ) : (
+
+          filteredPatients.map((patient) => (
+
+            <div
+              className="patient-card"
+              key={patient.id}
+            >
+
+              <h3>
+
+                {patient.patient_name || "--"}
+
+              </h3>
+
+              <div className="patient-info">
+
+                <span>User ID</span>
+
+                <span>{patient.user_id}</span>
+
+              </div>
+
+              <div className="patient-info">
+
+                <span>Date</span>
+
+                <span>
+
+                  {patient.created_at
+                    ? patient.created_at.split("T")[0]
+                    : "--"}
+
+                </span>
+
+              </div>
+
+              <div className="patient-info">
+
+                <span>Condition</span>
+
+                <span>--</span>
+
+              </div>
+
+              <div className="patient-info">
+
+                <span>Risk</span>
+
+                <span>--</span>
+
+              </div>
+
+              <div className="patient-info">
+
+                <span>Confidence</span>
+
+                <span>--</span>
+
+              </div>
+
+              <button className="view-btn">
+
+                <FaEye />
+
+                View Details
+
+              </button>
+
+            </div>
+
+          ))
+
+        )}
+
+      </div>
 
     </div>
 

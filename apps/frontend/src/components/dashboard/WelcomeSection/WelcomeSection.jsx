@@ -4,6 +4,7 @@ import { FaUpload } from "react-icons/fa";
 import { useAuth } from "../../../context/AuthContext";
 
 const WelcomeSection = () => {
+
   const { user } = useAuth();
 
   const today = new Date();
@@ -16,6 +17,7 @@ const WelcomeSection = () => {
   });
 
   return (
+
     <section className="welcome-section">
 
       {/* Left */}
@@ -23,16 +25,24 @@ const WelcomeSection = () => {
       <div className="welcome-text">
 
         <h1>
+
           Welcome back,
-          {" "}
-          Dr. {user?.displayName || "Doctor"} 
+          <br />
+
+          <span>
+            Dr. {user?.displayName || "Doctor"}
+          </span>
+
         </h1>
 
         <p>
 
           {formattedDate}
 
-          <span> • Cardiology Department</span>
+          <span>
+            {" "}
+            • Cardiology Department
+          </span>
 
         </p>
 
@@ -49,7 +59,9 @@ const WelcomeSection = () => {
       </button>
 
     </section>
+
   );
+
 };
 
 export default WelcomeSection;

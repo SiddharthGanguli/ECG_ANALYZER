@@ -17,6 +17,10 @@ const PatientHistory = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Responsive Sidebar
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   useEffect(() => {
 
     const search = searchParams.get("search");
@@ -33,11 +37,17 @@ const PatientHistory = () => {
 
     <div className="history-page">
 
-      <Sidebar />
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       <div className="history-main">
 
-        <Header />
+        <Header
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
         <div className="history-content">
 

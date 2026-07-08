@@ -1,15 +1,75 @@
 .history-page{
-    display:flex;
+
+    width:100%;
+
     min-height:100vh;
-    background:#f8fafc;
+
+    background:#f5f7fb;
+
 }
 
 .history-main{
-    flex:1;
+
+    margin-left:280px;
+
+    width:calc(100% - 280px);
+
+    min-height:100vh;
+
     display:flex;
+
     flex-direction:column;
+
 }
 
 .history-content{
+
     padding:30px;
+
+}
+
+/* ===========================
+   Tablet & Mobile
+=========================== */
+
+@media (max-width:992px){
+
+    .dashboard-main,
+    .upload-main,
+    .history-main{
+
+        margin-left:0;
+
+        width:100%;
+
+    }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:768px){
+
+    .history-content{
+
+        padding:18px;
+
+    }
+
+}
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+    .history-content{
+
+        padding:14px;
+
+    }
+
 }

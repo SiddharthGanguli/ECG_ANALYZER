@@ -456,3 +456,39 @@ justify-content:center;
     grid-template-columns: 1fr;
   }
 }
+.dashboard{
+
+    min-height:100vh;
+
+    background:#f4f7fc;
+
+    font-family:"Inter",sans-serif;
+
+}
+
+.dashboard-main{
+
+    margin-left:280px;
+
+    width:calc(100% - 280px);
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+@media (max-width:992px){
+
+    .dashboard-main,
+    .upload-main,
+    .history-main{
+
+        margin-left:0;
+
+        width:100%;
+
+    }
+
+}
