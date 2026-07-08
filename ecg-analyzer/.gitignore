@@ -24,3 +24,5 @@ models/*
 !data/processed/.gitkeep
 !models/.gitkeep
 
+
+tests/

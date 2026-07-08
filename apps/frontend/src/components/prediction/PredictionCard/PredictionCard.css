@@ -1,0 +1,139 @@
+.prediction-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.prediction-left{
+
+    width:80px;
+
+}
+
+.risk-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:#fff4e5;
+
+    color:#f59e0b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+}
+
+.prediction-center{
+
+    flex:1;
+
+    padding:0 30px;
+
+}
+
+.risk-badge{
+
+    background:#ef4444;
+
+    color:white;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.prediction-center h2{
+
+    margin-top:18px;
+
+    font-size:34px;
+
+    color:#1e293b;
+
+}
+
+.confidence{
+
+    margin-top:15px;
+
+    color:#64748b;
+
+    font-size:17px;
+
+}
+
+.confidence strong{
+
+    margin-left:10px;
+
+    color:#2563eb;
+
+    font-size:30px;
+
+}
+
+.prediction-center p{
+
+    margin-top:18px;
+
+    color:#475569;
+
+    line-height:1.7;
+
+}
+
+.prediction-right{
+
+    width:120px;
+
+}
+
+.heart-circle{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:42px;
+
+}

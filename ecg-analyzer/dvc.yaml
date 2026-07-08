@@ -58,18 +58,18 @@ stages:
     outs:
       - artifacts/model_training/model
 
-model_evaluation:
-  cmd: python src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
+  model_evaluation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
 
-  deps:
-    - configs/config.yaml
-    - artifacts/model_training/model/cnn_lstm_model.pth
-    - artifacts/data_preprocessing/processed
-    - src/ecg-analyzer/components/model_evaluation.py
-    - src/ecg-analyzer/training/cnn_lstm.py
-    - src/ecg-analyzer/config/config.py
-    - src/ecg-analyzer/entity/entity.py
-    - src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
+    deps:
+      - configs/config.yaml
+      - artifacts/model_training/model/cnn_lstm_model.pth
+      - artifacts/data_preprocessing/processed
+      - src/ecg-analyzer/components/model_evaluation.py
+      - src/ecg-analyzer/training/cnn_lstm.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
 
-  outs:
-    - artifacts/model_evaluation
+    outs:
+      - artifacts/model_evaluation

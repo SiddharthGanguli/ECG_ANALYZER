@@ -1,0 +1,31 @@
+/* ===== Login Page Layout ===== */
+
+.login-page {
+    display: flex;
+    min-height: 100vh;
+    background: #f4f8fc;
+    padding: 20px;
+    gap: 24px;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width: 992px) {
+    .login-page {
+        flex-direction: column;
+        padding: 16px;
+    }
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width: 576px) {
+    .login-page {
+        padding: 10px;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,213 @@
+/* ===========================
+   Upload Card
+=========================== */
+
+.upload-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.upload-card h2 {
+  font-size: 28px;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.upload-subtitle {
+  color: #64748b;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* ===========================
+   Upload Dropzone
+=========================== */
+
+.upload-dropzone {
+  border: 2px dashed #2563eb;
+  border-radius: 18px;
+  background: #f8fbff;
+
+  padding: 45px 20px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.upload-dropzone:hover {
+  background: #eef5ff;
+  border-color: #1d4ed8;
+}
+
+.upload-icon {
+  font-size: 65px;
+  color: #2563eb;
+  margin-bottom: 18px;
+}
+
+.upload-dropzone h3 {
+  font-size: 24px;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.upload-dropzone p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   Browse Button
+=========================== */
+
+.browse-file-btn {
+  background: #2563eb;
+  color: white;
+
+  border: none;
+
+  border-radius: 12px;
+
+  padding: 14px 28px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.browse-file-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ===========================
+   Selected File
+=========================== */
+
+.selected-file {
+  margin-top: 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  background: #ecfdf5;
+
+  border: 1px solid #10b981;
+
+  padding: 16px;
+
+  border-radius: 14px;
+}
+
+.selected-file svg {
+  color: #10b981;
+  font-size: 26px;
+}
+
+.selected-file h4 {
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.selected-file span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ===========================
+   Supported Formats
+=========================== */
+
+.supported-formats {
+  margin-top: 30px;
+}
+
+.supported-formats h4 {
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.format-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.format-list span {
+  background: #eff6ff;
+  color: #2563eb;
+
+  padding: 8px 16px;
+
+  border-radius: 50px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===========================
+   Analyze Button
+=========================== */
+
+.analyze-btn {
+  width: 100%;
+
+  margin-top: 30px;
+
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  color: white;
+
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.analyze-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+  .upload-card {
+    padding: 22px;
+  }
+
+  .upload-dropzone {
+    padding: 35px 18px;
+  }
+
+  .upload-icon {
+    font-size: 55px;
+  }
+
+  .upload-dropzone h3 {
+    font-size: 20px;
+  }
+}
