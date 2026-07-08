@@ -1,0 +1,22 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+
+  source_dir: data/raw
+
+  train_file_name: mitbih_train.csv
+
+  test_file_name: mitbih_test.csv
+
+  raw_data_dir: artifacts/data_ingestion/raw
+
+data_validation:
+  root_dir: artifacts/data_validation
+  raw_data_dir: artifacts/data_ingestion/raw
+  train_file_name: mitbih_train.csv
+  test_file_name: mitbih_test.csv
+  status_file: artifacts/data_validation/status.txt
+  expected_number_of_columns: 188
+  target_column_index: 187
+  allowed_target_classes: [0, 1, 2, 3, 4]

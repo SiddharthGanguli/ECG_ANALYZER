@@ -1,0 +1,173 @@
+.history-table-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+
+}
+
+/* ===========================
+   Desktop Table
+=========================== */
+
+.history-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.history-table th{
+
+    background:#f8fafc;
+
+    color:#64748b;
+
+    font-weight:600;
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+.history-table td{
+
+    padding:18px;
+
+    border-top:1px solid #eef2f7;
+
+}
+
+.history-table tr:hover{
+
+    background:#f8fbff;
+
+}
+
+.view-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.view-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ===========================
+   Mobile Cards
+=========================== */
+
+.mobile-history{
+
+    display:none;
+
+    padding:16px;
+
+}
+
+.patient-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+
+}
+
+.patient-card h3{
+
+    font-size:18px;
+
+    margin-bottom:14px;
+
+    color:#1e293b;
+
+}
+
+.patient-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+}
+
+.patient-info span:first-child{
+
+    color:#64748b;
+
+}
+
+.patient-info span:last-child{
+
+    font-weight:600;
+
+    color:#1e293b;
+
+}
+
+.patient-card .view-btn{
+
+    width:100%;
+
+    margin-top:16px;
+
+}
+
+/* ===========================
+   Mobile Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .history-table{
+
+        display:none;
+
+    }
+
+    .mobile-history{
+
+        display:block;
+
+    }
+
+}

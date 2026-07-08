@@ -1,0 +1,29 @@
+.signup-page{
+    display:flex;
+    min-height:100vh;
+    background:#f5f8fc;
+    padding:20px;
+    gap:24px;
+}
+
+@media(max-width:992px){
+
+.signup-page{
+
+flex-direction:column;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.signup-page{
+
+padding:10px;
+
+gap:15px;
+
+}
+
+}

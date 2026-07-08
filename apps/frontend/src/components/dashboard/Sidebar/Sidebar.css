@@ -1,0 +1,309 @@
+.sidebar{
+
+    width:280px;
+
+    height:100vh;
+
+    background:#101827;
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:24px 18px;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    z-index:1000;
+
+    transition:0.3s ease;
+
+    overflow-y:auto;
+
+}
+
+/* ===========================
+   Logo
+=========================== */
+
+.sidebar-logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:40px;
+
+}
+
+.logo-icon{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:14px;
+
+    background:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:24px;
+
+}
+
+.sidebar-logo h2{
+
+    font-size:24px;
+
+    margin:0;
+
+}
+
+.sidebar-logo p{
+
+    margin-top:3px;
+
+    color:#94a3b8;
+
+}
+
+/* ===========================
+   Menu
+=========================== */
+
+.menu-title{
+
+    color:#64748b;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    margin-bottom:15px;
+
+}
+
+.sidebar-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.menu-item{
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    transition:.3s;
+
+    font-size:16px;
+
+}
+
+.menu-item:hover{
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+.active{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.menu-item:visited{
+
+    color:inherit;
+
+}
+
+/* ===========================
+   Doctor Card
+=========================== */
+
+.doctor-card{
+
+    margin-top:auto;
+
+    background:#1e293b;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:bold;
+
+}
+
+.doctor-card h4{
+
+    margin:0;
+
+}
+
+.doctor-card p{
+
+    margin-top:4px;
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+}
+
+/* ===========================
+   Logout
+=========================== */
+
+.logout-btn{
+
+    margin-top:18px;
+
+    background:#ef4444;
+
+    border:none;
+
+    color:white;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.logout-btn:hover{
+
+    background:#dc2626;
+
+}
+
+/* ===========================
+   Overlay
+=========================== */
+
+.sidebar-overlay{
+
+    display:none;
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        transform:translateX(-100%);
+
+        box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+    }
+
+    .sidebar.sidebar-open{
+
+        transform:translateX(0);
+
+    }
+
+    .sidebar-overlay{
+
+        display:block;
+
+        position:fixed;
+
+        inset:0;
+
+        background:rgba(0,0,0,.45);
+
+        opacity:0;
+
+        visibility:hidden;
+
+        transition:.3s;
+
+        z-index:999;
+
+    }
+
+    .sidebar-overlay.show-overlay{
+
+        opacity:1;
+
+        visibility:visible;
+
+    }
+
+}
