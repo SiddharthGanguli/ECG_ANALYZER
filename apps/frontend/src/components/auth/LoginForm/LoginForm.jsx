@@ -3,10 +3,13 @@ import "./LoginForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+
 import { login } from "../../../services/authService";
 import { getFirebaseError } from "../../../utils/firebaseErrors";
 import { getUserByUid } from "../../../services/userService";
+
 import {
   Mail,
   Lock,
@@ -20,10 +23,7 @@ const LoginForm = ({ role }) => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
-  // NEW STATE
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -32,63 +32,80 @@ const LoginForm = ({ role }) => {
   });
 
   const handleChange = (e) => {
+
     const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
 
-  setLoading(true);
+    e.preventDefault();
 
-  try {
-    // Login with Firebase
-    const firebaseUser = await login(
-      formData.email,
-      formData.password
-    );
+    setLoading(true);
 
-    console.log("Firebase User:", firebaseUser);
+    try {
 
-    // Get user from PostgreSQL
-    const dbUser = await getUserByUid(firebaseUser.uid);
+      // Firebase Login
+      const firebaseUser = await login(
+        formData.email,
+        formData.password
+      );
 
-    console.log("Database User:", dbUser);
+      console.log("Firebase User:", firebaseUser);
 
-    // Check selected role
-    if (dbUser.role !== role) {
-      toast.error("Wrong Account Type", {
-        description: `This account is registered as a ${dbUser.role}.`,
+      // Get PostgreSQL User
+      const dbUser = await getUserByUid(firebaseUser.uid);
+
+      console.log("Database User:", dbUser);
+
+      // Verify selected role
+      if (dbUser.role !== role) {
+
+        toast.error("Wrong Account Type", {
+          description: `This account is registered as a ${dbUser.role}.`,
+        });
+
+        return;
+
+      }
+
+      console.log("Logged In User:", dbUser);
+
+      toast.success("Login Successful!");
+
+      // Navigate to Dashboard
+
+      if (dbUser.role === "doctor") {
+
+        navigate("/doctor/dashboard");
+
+      } else {
+
+        navigate("/patient/dashboard");
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      toast.error("Login Failed", {
+        description: getFirebaseError(error.code),
       });
 
-      return;
+    } finally {
+
+      setLoading(false);
+
     }
 
-    console.log("Logged In User:", dbUser);
+  };
 
-    toast.success("Login Successful!");
-
-    if (dbUser.role === "doctor") {
-      navigate("/doctor/dashboard");
-    } else {
-      navigate("/patient/dashboard");
-    }
-
-  } catch (error) {
-    console.error(error);
-
-    toast.error("Login Failed", {
-      description: getFirebaseError(error.code),
-    });
-
-  } finally {
-    setLoading(false);
-  }
-};
   return (
     <>
 
@@ -144,18 +161,20 @@ const handleSubmit = async (e) => {
               className="eye-btn"
               onClick={() => setShowPassword(!showPassword)}
             >
+
               {showPassword ? (
                 <EyeOff size={18} />
               ) : (
                 <Eye size={18} />
               )}
+
             </button>
 
           </div>
 
         </div>
 
-        {/* Remember */}
+        {/* Remember Me */}
 
         <div className="form-options">
 
@@ -172,7 +191,9 @@ const handleSubmit = async (e) => {
             className="forgot-btn"
             onClick={() => setShowForgotPassword(true)}
           >
+
             Forgot Password?
+
           </button>
 
         </div>
@@ -184,14 +205,20 @@ const handleSubmit = async (e) => {
           className="login-btn"
           disabled={loading}
         >
+
           {loading ? (
+
             "Signing In..."
+
           ) : (
+
             <>
               Login
               <ArrowRight size={18} />
             </>
+
           )}
+
         </button>
 
       </form>
@@ -205,6 +232,7 @@ const handleSubmit = async (e) => {
 
     </>
   );
+
 };
 
 export default LoginForm;

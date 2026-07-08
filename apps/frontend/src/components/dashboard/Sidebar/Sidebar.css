@@ -14,13 +14,23 @@
 
     padding:24px 18px;
 
-    position:sticky;
+    position:fixed;
 
     top:0;
 
+    left:0;
+
+    z-index:1000;
+
+    transition:0.3s ease;
+
+    overflow-y:auto;
+
 }
 
-/* Logo */
+/* ===========================
+   Logo
+=========================== */
 
 .sidebar-logo{
 
@@ -70,7 +80,9 @@
 
 }
 
-/* Menu */
+/* ===========================
+   Menu
+=========================== */
 
 .menu-title{
 
@@ -96,11 +108,9 @@
 
 .menu-item{
 
-    background:none;
-
-    border:none;
-
     color:#cbd5e1;
+
+    text-decoration:none;
 
     display:flex;
 
@@ -112,15 +122,9 @@
 
     border-radius:14px;
 
-    cursor:pointer;
+    transition:.3s;
 
     font-size:16px;
-
-    transition:.3s;
-    text-decoration: none;
-display: flex;
-align-items: center;
-justify-content: flex-start;
 
 }
 
@@ -139,6 +143,16 @@ justify-content: flex-start;
     color:white;
 
 }
+
+.menu-item:visited{
+
+    color:inherit;
+
+}
+
+/* ===========================
+   Doctor Card
+=========================== */
 
 .doctor-card{
 
@@ -194,6 +208,10 @@ justify-content: flex-start;
 
 }
 
+/* ===========================
+   Logout
+=========================== */
+
 .logout-btn{
 
     margin-top:18px;
@@ -229,6 +247,63 @@ justify-content: flex-start;
     background:#dc2626;
 
 }
-.menu-item:visited{
-    color: inherit;
+
+/* ===========================
+   Overlay
+=========================== */
+
+.sidebar-overlay{
+
+    display:none;
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        transform:translateX(-100%);
+
+        box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+    }
+
+    .sidebar.sidebar-open{
+
+        transform:translateX(0);
+
+    }
+
+    .sidebar-overlay{
+
+        display:block;
+
+        position:fixed;
+
+        inset:0;
+
+        background:rgba(0,0,0,.45);
+
+        opacity:0;
+
+        visibility:hidden;
+
+        transition:.3s;
+
+        z-index:999;
+
+    }
+
+    .sidebar-overlay.show-overlay{
+
+        opacity:1;
+
+        visibility:visible;
+
+    }
+
 }
