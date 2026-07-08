@@ -1,0 +1,370 @@
+.header{
+
+    height:80px;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+/* ===========================
+   Left
+=========================== */
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.breadcrumb{
+
+    color:#64748b;
+
+    font-size:15px;
+
+}
+
+.divider{
+
+    color:#cbd5e1;
+
+}
+
+.current-page{
+
+    color:#1e293b;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+}
+
+/* ===========================
+   Right
+=========================== */
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+/* ===========================
+   Desktop Search
+=========================== */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:260px;
+
+    padding:12px 18px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    width:100%;
+
+    font-size:14px;
+
+}
+
+/* ===========================
+   Notification
+=========================== */
+
+.notification-btn{
+
+    position:relative;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    width:9px;
+
+    height:9px;
+
+    background:#ef4444;
+
+    border-radius:50%;
+
+    top:11px;
+
+    right:11px;
+
+}
+
+/* ===========================
+   Profile
+=========================== */
+
+.profile{
+
+    cursor:pointer;
+
+}
+
+.profile-avatar{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+   Hamburger Button
+=========================== */
+
+.menu-btn{
+
+    display:none;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#1e293b;
+
+    font-size:18px;
+
+}
+
+/* ===========================
+   Mobile Search Icon
+=========================== */
+
+.mobile-search-btn{
+
+    display:none;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#1e293b;
+
+    font-size:17px;
+
+}
+
+/* ======================================================
+   TABLET
+====================================================== */
+
+@media (max-width:992px){
+
+    .menu-btn{
+
+        display:flex;
+
+    }
+
+}
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width:768px){
+
+    .header{
+
+        height:70px;
+
+        padding:0 14px;
+
+    }
+
+    .header-left{
+
+        gap:10px;
+
+    }
+
+    .breadcrumb{
+
+        font-size:15px;
+
+    }
+
+    .divider{
+
+        font-size:15px;
+
+    }
+
+    .current-page{
+
+        font-size:15px;
+
+    }
+
+    /* Hide Desktop Search */
+
+    .search-box{
+
+        display:none;
+
+    }
+
+    /* Show Mobile Search Icon */
+
+    .mobile-search-btn{
+
+        display:flex;
+
+    }
+
+    .header-right{
+
+        gap:8px;
+
+    }
+
+    .menu-btn,
+    .mobile-search-btn,
+    .notification-btn,
+    .profile-avatar{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+}
+
+/* ======================================================
+   EXTRA SMALL PHONES
+====================================================== */
+
+@media (max-width:480px){
+
+    .header{
+
+        padding:0 10px;
+
+    }
+
+    .breadcrumb{
+
+        display:none;
+
+    }
+
+    .divider{
+
+        display:none;
+
+    }
+
+    .current-page{
+
+        font-size:15px;
+
+    }
+
+    .header-right{
+
+        gap:6px;
+
+    }
+
+}

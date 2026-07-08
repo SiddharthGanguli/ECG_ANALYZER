@@ -1,0 +1,15 @@
+.upload-header{
+    margin-bottom:30px;
+}
+
+.upload-header h1{
+    font-size:44px;
+    font-weight:700;
+    color:#1e293b;
+    margin-bottom:8px;
+}
+
+.upload-header p{
+    font-size:20px;
+    color:#64748b;
+}
