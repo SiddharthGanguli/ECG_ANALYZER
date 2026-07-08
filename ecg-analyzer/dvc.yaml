@@ -1,0 +1,75 @@
+stages:
+  data_ingestion:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+
+    deps:
+      - configs/config.yaml
+      - data/raw/mitbih_train.csv
+      - data/raw/mitbih_test.csv
+      - src/ecg-analyzer/components/data_ingestion.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+
+    outs:
+      - artifacts/data_ingestion/raw
+
+  data_validation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+
+    deps:
+      - configs/config.yaml
+      - artifacts/data_ingestion/raw
+      - src/ecg-analyzer/components/data_validation.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+
+    outs:
+      - artifacts/data_validation
+
+  data_preprocessing:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-03-data_preprocessing.py
+
+    deps:
+      - configs/config.yaml
+      - artifacts/data_ingestion/raw
+      - src/ecg-analyzer/components/data_preprocessing.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-03-data_preprocessing.py
+
+    outs:
+      - artifacts/data_preprocessing
+
+  model_training:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-04-model_training.py
+
+    deps:
+      - configs/config.yaml
+      - artifacts/data_preprocessing/processed
+      - src/ecg-analyzer/components/model_training.py
+      - src/ecg-analyzer/training/cnn_lstm.py
+      - src/ecg-analyzer/training/ecg_dataset.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-04-model_training.py
+
+    outs:
+      - artifacts/model_training/model
+
+  model_evaluation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
+
+    deps:
+      - configs/config.yaml
+      - artifacts/model_training/model/cnn_lstm_model.pth
+      - artifacts/data_preprocessing/processed
+      - src/ecg-analyzer/components/model_evaluation.py
+      - src/ecg-analyzer/training/cnn_lstm.py
+      - src/ecg-analyzer/config/config.py
+      - src/ecg-analyzer/entity/entity.py
+      - src/ecg-analyzer/pipelines/pipeline-05-model_evaluation.py
+
+    outs:
+      - artifacts/model_evaluation

@@ -1,0 +1,149 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 829a9f30685bef8e1bbb615a04b0d1b3
+      size: 2138
+    - path: data/raw/mitbih_test.csv
+      hash: md5
+      md5: 40a06a9d63289349aa2d9f8dfa41d3da
+      size: 102892400
+    - path: data/raw/mitbih_train.csv
+      hash: md5
+      md5: 7c3ef5146d05335606917778cc899b83
+      size: 411503800
+    - path: src/ecg-analyzer/components/data_ingestion.py
+      hash: md5
+      md5: 9d3eba0e0cc8784d573338101b9d5f67
+      size: 1510
+    - path: src/ecg-analyzer/config/config.py
+      hash: md5
+      md5: ee946b2d600aef4a15d5d6368ff50402
+      size: 5991
+    - path: src/ecg-analyzer/entity/entity.py
+      hash: md5
+      md5: 70d1e39b2cbc7405045d3c6748309484
+      size: 1920
+    - path: src/ecg-analyzer/pipelines/pipeline-01-data_ingestion.py
+      hash: md5
+      md5: 55831f9bd2b6efba019f7899aabdb606
+      size: 783
+    outs:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
+  data_validation:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+    deps:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
+    - path: configs/config.yaml
+      hash: md5
+      md5: 829a9f30685bef8e1bbb615a04b0d1b3
+      size: 2138
+    - path: src/ecg-analyzer/components/data_validation.py
+      hash: md5
+      md5: e1442b41afc8d4e654e94f0bc9ee0fe3
+      size: 2723
+    - path: src/ecg-analyzer/config/config.py
+      hash: md5
+      md5: ee946b2d600aef4a15d5d6368ff50402
+      size: 5991
+    - path: src/ecg-analyzer/entity/entity.py
+      hash: md5
+      md5: 70d1e39b2cbc7405045d3c6748309484
+      size: 1920
+    - path: src/ecg-analyzer/pipelines/pipeline-02-data_validation.py
+      hash: md5
+      md5: 005f4956458bd889cb952603245fbdfc
+      size: 922
+    outs:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: 1f2d956f0f7040e0f4e3d062f0786a5b.dir
+      size: 23
+      nfiles: 1
+  data_preprocessing:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-03-data_preprocessing.py
+    deps:
+    - path: artifacts/data_ingestion/raw
+      hash: md5
+      md5: cf9ce0260fb198dd4b346b9b71e93415.dir
+      size: 514396200
+      nfiles: 2
+    - path: configs/config.yaml
+      hash: md5
+      md5: 829a9f30685bef8e1bbb615a04b0d1b3
+      size: 2138
+    - path: src/ecg-analyzer/components/data_preprocessing.py
+      hash: md5
+      md5: 3a818233e51d96fb0cda6696eeeb102a
+      size: 4715
+    - path: src/ecg-analyzer/config/config.py
+      hash: md5
+      md5: ee946b2d600aef4a15d5d6368ff50402
+      size: 5991
+    - path: src/ecg-analyzer/entity/entity.py
+      hash: md5
+      md5: 70d1e39b2cbc7405045d3c6748309484
+      size: 1920
+    - path: src/ecg-analyzer/pipelines/pipeline-03-data_preprocessing.py
+      hash: md5
+      md5: 444c63c2d763bc9d9fb574ed532e4743
+      size: 962
+    outs:
+    - path: artifacts/data_preprocessing
+      hash: md5
+      md5: 6a1f9108fc590ac9b282dddb3035f028.dir
+      size: 82741688
+      nfiles: 4
+  model_training:
+    cmd: python src/ecg-analyzer/pipelines/pipeline-04-model_training.py
+    deps:
+    - path: artifacts/data_preprocessing/processed
+      hash: md5
+      md5: 8f82978cda32e32222e253ced511f714.dir
+      size: 82741688
+      nfiles: 4
+    - path: configs/config.yaml
+      hash: md5
+      md5: 01af7d59497afe2224eb7acaded8542e
+      size: 1727
+    - path: src/ecg-analyzer/components/model_training.py
+      hash: md5
+      md5: 408b201076c6a4c5d90aeb48018aec78
+      size: 11970
+    - path: src/ecg-analyzer/config/config.py
+      hash: md5
+      md5: 6b3a75670f412c75f9fd878f5ec0bc5c
+      size: 5365
+    - path: src/ecg-analyzer/entity/entity.py
+      hash: md5
+      md5: be6ea231a7b40f18ae79a9e1def34377
+      size: 1625
+    - path: src/ecg-analyzer/pipelines/pipeline-04-model_training.py
+      hash: md5
+      md5: a142f4557fe2a89f2f15ce7bacaf657c
+      size: 1094
+    - path: src/ecg-analyzer/training/cnn_lstm.py
+      hash: md5
+      md5: ec28bddd7454ce7bc89964655354522b
+      size: 3805
+    - path: src/ecg-analyzer/training/ecg_dataset.py
+      hash: md5
+      md5: 3a1991763ada02b3d1e0e60ab4072631
+      size: 427
+    outs:
+    - path: artifacts/model_training/model
+      hash: md5
+      md5: 727b2db1e4d39bf9baad9321e9fab771.dir
+      size: 1931061
+      nfiles: 1
