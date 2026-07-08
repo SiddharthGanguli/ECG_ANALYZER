@@ -1,24 +1,31 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// =========================
 // Authentication Pages
+// =========================
+
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
+// =========================
 // Doctor Pages
+// =========================
+
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UploadECG from "./pages/UploadECG/UploadECG";
 import PatientHistory from "./pages/PatientHistory/PatientHistory";
+import AIPrediction from "./pages/AIPrediction/AIPrediction";
 
 function App() {
+
   return (
+
     <BrowserRouter>
 
       <Routes>
 
-        {/* ========================= */}
         {/* Authentication */}
-        {/* ========================= */}
 
         <Route
           path="/"
@@ -35,9 +42,7 @@ function App() {
           element={<ResetPassword />}
         />
 
-        {/* ========================= */}
-        {/* Doctor Dashboard */}
-        {/* ========================= */}
+        {/* Doctor */}
 
         <Route
           path="/doctor/dashboard"
@@ -50,51 +55,21 @@ function App() {
         />
 
         <Route
-          path="/doctor/patient-history"
-          element={<PatientHistory />}
-        />
-
-        {/* ========================= */}
-        {/* Future Doctor Pages */}
-        {/* ========================= */}
-
-        {/*
-        <Route
-          path="/doctor/signal-analysis"
-          element={<SignalAnalysis />}
-        />
-
-        <Route
           path="/doctor/ai-prediction"
           element={<AIPrediction />}
         />
 
         <Route
-          path="/doctor/reports"
-          element={<Reports />}
+          path="/doctor/patient-history"
+          element={<PatientHistory />}
         />
-
-        <Route
-          path="/doctor/settings"
-          element={<Settings />}
-        />
-        */}
-
-        {/* ========================= */}
-        {/* Patient Routes (Future) */}
-        {/* ========================= */}
-
-        {/*
-        <Route
-          path="/patient/dashboard"
-          element={<PatientDashboard />}
-        />
-        */}
 
       </Routes>
 
     </BrowserRouter>
+
   );
+
 }
 
 export default App;

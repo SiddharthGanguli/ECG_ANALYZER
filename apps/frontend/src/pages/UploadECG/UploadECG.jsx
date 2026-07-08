@@ -1,6 +1,7 @@
 import "./UploadECG.css";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../../components/dashboard/Sidebar/Sidebar";
 import Header from "../../components/dashboard/Header/Header";
@@ -14,6 +15,8 @@ import { createPatientProfile } from "../../services/patientService";
 import { uploadECG } from "../../services/ecgService";
 
 const UploadECG = () => {
+
+  const navigate = useNavigate();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -35,36 +38,32 @@ const UploadECG = () => {
     try {
 
       if (!selectedFile) {
-        alert("Please select a CSV file.");
+
+        alert("Please upload an ECG CSV file.");
+
         return;
+
       }
 
-      console.log("========== START ==========");
-      console.log("Patient Data:", patientData);
-      console.log("Selected File:", selectedFile);
-
-      // ==========================
-      // Save Patient Profile
-      // ==========================
+      // ===========================
+      // Save Patient Information
+      // ===========================
 
       const payload = {
+
         ...patientData,
+
         user_id: Number(patientData.user_id),
         height: Number(patientData.height),
         weight: Number(patientData.weight),
+
       };
 
-      console.log("Sending Patient Profile...");
-      console.log(payload);
+      await createPatientProfile(payload);
 
-      const patientResponse = await createPatientProfile(payload);
-
-      console.log("Patient Saved Successfully");
-      console.log(patientResponse);
-
-      // ==========================
-      // Upload ECG
-      // ==========================
+      // ===========================
+      // Upload ECG CSV
+      // ===========================
 
       const formData = new FormData();
 
@@ -83,16 +82,33 @@ const UploadECG = () => {
         selectedFile
       );
 
-      console.log("Uploading ECG...");
-
       const uploadResponse = await uploadECG(formData);
 
-      console.log("ECG Uploaded Successfully");
+      console.log("Backend Response:");
       console.log(uploadResponse);
 
-      alert("ECG uploaded successfully!");
+      // ===========================
+      // Navigate to AI Prediction
+      // ===========================
+
+      navigate("/doctor/ai-prediction", {
+
+        state: {
+
+          patient: patientData,
+
+          ecg: uploadResponse.ecg,
+
+        },
+
+      });
+
+      // ===========================
+      // Reset Form
+      // ===========================
 
       setPatientData({
+
         user_id: "",
         patient_name: "",
         date_of_birth: "",
@@ -101,50 +117,38 @@ const UploadECG = () => {
         height: "",
         weight: "",
         emergency_contact: "",
+
       });
 
       setSelectedFile(null);
 
-    } catch (error) {
+    }
 
-      console.log("========== ERROR ==========");
+    catch (error) {
 
       console.error(error);
 
       if (error.response) {
 
-        console.log("Status Code:");
-        console.log(error.response.status);
-
-        console.log("Response Data:");
-        console.log(error.response.data);
-
-        console.log("Response Headers:");
-        console.log(error.response.headers);
-
         alert(
           `Backend Error (${error.response.status})\n\n${JSON.stringify(error.response.data, null, 2)}`
         );
 
-      } else if (error.request) {
+      }
 
-        console.log("No response received from backend.");
-        console.log(error.request);
+      else if (error.request) {
 
         alert(
-          "No response received from backend.\n\nCheck the FastAPI terminal."
+          "No response received from backend."
         );
 
-      } else {
+      }
 
-        console.log("Request Error:");
-        console.log(error.message);
+      else {
 
         alert(error.message);
 
       }
-
-      console.log("========== END ERROR ==========");
 
     }
 

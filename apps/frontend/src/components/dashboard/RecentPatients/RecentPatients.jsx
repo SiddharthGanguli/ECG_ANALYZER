@@ -2,31 +2,36 @@ import "./RecentPatients.css";
 
 import { useEffect, useState } from "react";
 
-import { getRecentPatients } from "../../../services/dashboardService";
+import { getDashboard } from "../../../services/dashboardService";
 
 const RecentPatients = () => {
 
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    fetchPatients();
+
+    fetchDashboard();
+
   }, []);
 
-  const fetchPatients = async () => {
+  const fetchDashboard = async () => {
+
     try {
 
-      const data = await getRecentPatients();
+      const data = await getDashboard();
 
-      setPatients(data);
+      setPatients(data.recentPatients);
 
     } catch (error) {
 
       console.error(error);
 
     }
+
   };
 
   return (
+
     <section className="recent-patients">
 
       <div className="recent-header">
@@ -61,25 +66,52 @@ const RecentPatients = () => {
 
         <tbody>
 
-          {patients.map((patient) => (
+          {patients.map((patient, index) => (
 
-            <tr key={patient.id}>
+            <tr key={index}>
 
               <td>{patient.user_id}</td>
 
               <td>{patient.patient_name}</td>
 
               <td>
+
                 {patient.created_at
                   ? patient.created_at.split("T")[0]
                   : "--"}
+
               </td>
 
-              <td>--</td>
+              <td>
 
-              <td>--</td>
+                {patient.condition}
 
-              <td>--</td>
+              </td>
+
+              <td>
+
+                <span
+                  style={{
+                    color:
+                      patient.risk === "High Risk"
+                        ? "#dc2626"
+                        : "#16a34a",
+                    fontWeight: 600,
+                  }}
+                >
+
+                  {patient.risk}
+
+                </span>
+
+              </td>
+
+              <td>
+
+                {patient.confidence}
+                {patient.confidence !== "--" ? "%" : ""}
+
+              </td>
 
             </tr>
 
@@ -90,7 +122,9 @@ const RecentPatients = () => {
       </table>
 
     </section>
+
   );
+
 };
 
 export default RecentPatients;

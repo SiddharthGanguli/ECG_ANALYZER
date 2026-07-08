@@ -1,5 +1,0 @@
-[core]
-    remote = myremote
-['remote "myremote"']
-    url = s3://ecg-ml-main-analysis
-    region = ap-south-1

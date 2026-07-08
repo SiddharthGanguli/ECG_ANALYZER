@@ -1,27 +1,31 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000";
+const API_URL = "http://127.0.0.1:8000";
 
-/* =========================================
-   Recent Patients (Dashboard)
-========================================= */
+// ===============================
+// Dashboard
+// ===============================
 
-export const getRecentPatients = async () => {
+export const getDashboard = async () => {
+
   const response = await axios.get(
-    `${API_URL}/patients/recent`
+    `${API_URL}/dashboard`
   );
 
   return response.data;
+
 };
 
-/* =========================================
-   Patient History
-========================================= */
+// ===============================
+// Patient History
+// ===============================
 
 export const getPatientHistory = async () => {
+
   const response = await axios.get(
     `${API_URL}/patients/recent`
   );
 
   return response.data;
+
 };

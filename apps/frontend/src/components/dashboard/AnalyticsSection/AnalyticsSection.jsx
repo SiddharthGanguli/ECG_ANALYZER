@@ -1,5 +1,7 @@
 import "./AnalyticsSection.css";
 
+import { useEffect, useState } from "react";
+
 import {
   ResponsiveContainer,
   BarChart,
@@ -13,26 +15,42 @@ import {
   Cell,
 } from "recharts";
 
-const weeklyData = [
-  { day: "Mon", normal: 12, abnormal: 3 },
-  { day: "Tue", normal: 18, abnormal: 5 },
-  { day: "Wed", normal: 15, abnormal: 2 },
-  { day: "Thu", normal: 21, abnormal: 6 },
-  { day: "Fri", normal: 19, abnormal: 4 },
-  { day: "Sat", normal: 8, abnormal: 1 },
-  { day: "Sun", normal: 6, abnormal: 2 },
-];
-
-const conditionData = [
-  { name: "Normal", value: 58, color: "#10b981" },
-  { name: "Afib", value: 17, color: "#2563eb" },
-  { name: "ST-Elev", value: 12, color: "#f59e0b" },
-  { name: "VT", value: 8, color: "#ef4444" },
-  { name: "Other", value: 5, color: "#8b5cf6" },
-];
+import { getDashboard } from "../../../services/dashboardService";
 
 const AnalyticsSection = () => {
+
+  const [weeklyData, setWeeklyData] = useState([]);
+
+  const [conditionData, setConditionData] = useState([]);
+
+  useEffect(() => {
+
+    fetchDashboard();
+
+  }, []);
+
+  const fetchDashboard = async () => {
+
+    try {
+
+      const data = await getDashboard();
+
+      setWeeklyData(data.weekly);
+
+      setConditionData(data.conditions);
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+    }
+
+  };
+
   return (
+
     <section className="analytics-section">
 
       {/* Weekly Analysis */}
@@ -45,7 +63,7 @@ const AnalyticsSection = () => {
 
             <h2>Weekly Analysis Volume</h2>
 
-            <p>Normal vs. Abnormal ECGs</p>
+            <p>Normal vs Abnormal ECGs</p>
 
           </div>
 
@@ -53,7 +71,10 @@ const AnalyticsSection = () => {
 
         </div>
 
-        <ResponsiveContainer width="100%" height={250}>
+        <ResponsiveContainer
+          width="100%"
+          height={250}
+        >
 
           <BarChart data={weeklyData}>
 
@@ -71,13 +92,13 @@ const AnalyticsSection = () => {
             <Bar
               dataKey="normal"
               fill="#10b981"
-              radius={[8, 8, 0, 0]}
+              radius={[8,8,0,0]}
             />
 
             <Bar
               dataKey="abnormal"
               fill="#ef4444"
-              radius={[8, 8, 0, 0]}
+              radius={[8,8,0,0]}
             />
 
           </BarChart>
@@ -104,9 +125,12 @@ const AnalyticsSection = () => {
 
         <h2>Condition Distribution</h2>
 
-        <p>Last 30 Days</p>
+        <p>AI Prediction Distribution</p>
 
-        <ResponsiveContainer width="100%" height={190}>
+        <ResponsiveContainer
+          width="100%"
+          height={190}
+        >
 
           <PieChart>
 
@@ -140,15 +164,22 @@ const AnalyticsSection = () => {
             <div key={index}>
 
               <span
+
                 className="color-dot"
+
                 style={{
                   background: item.color,
                 }}
+
               ></span>
 
               {item.name}
 
-              <strong>{item.value}%</strong>
+              <strong>
+
+                {item.value}%
+
+              </strong>
 
             </div>
 
@@ -159,7 +190,9 @@ const AnalyticsSection = () => {
       </div>
 
     </section>
+
   );
+
 };
 
 export default AnalyticsSection;

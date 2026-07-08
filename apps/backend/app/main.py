@@ -11,17 +11,30 @@ from app.api.v1.endpoints.users import router as user_router
 from app.api.v1.endpoints.patients import router as patient_router
 from app.api.v1.endpoints.doctors import router as doctor_router
 from app.api.v1.endpoints.ecg import router as ecg_router
+from app.api.v1.endpoints.dashboard import router as dashboard_router
 
 
-# Create database tables
+# ==========================================
+# Create Database Tables
+# ==========================================
+
 Base.metadata.create_all(bind=engine)
+
+
+# ==========================================
+# FastAPI App
+# ==========================================
 
 app = FastAPI(
     title="ECG AI Analyzer API",
-    version="1.0.0"
+    version="1.0.0",
 )
 
+
+# ==========================================
 # CORS
+# ==========================================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -32,32 +45,45 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register routers
-# Register routers
+
+# ==========================================
+# Register Routers
+# ==========================================
+
 app.include_router(
     user_router,
     prefix="/users",
-    tags=["Users"]
+    tags=["Users"],
 )
 
 app.include_router(
     patient_router,
     prefix="/patients",
-    tags=["Patients"]
+    tags=["Patients"],
 )
 
 app.include_router(
     doctor_router,
     prefix="/doctors",
-    tags=["Doctors"]
+    tags=["Doctors"],
 )
 
 app.include_router(
     ecg_router,
     prefix="/ecg",
-    tags=["ECG"]
+    tags=["ECG"],
 )
 
+app.include_router(
+    dashboard_router,
+    prefix="/dashboard",
+    tags=["Dashboard"],
+)
+
+
+# ==========================================
+# Root Endpoint
+# ==========================================
 
 @app.get("/")
 def root():

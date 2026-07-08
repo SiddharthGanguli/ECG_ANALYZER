@@ -1,5 +1,7 @@
 import "./StatsCards.css";
 
+import { useEffect, useState } from "react";
+
 import {
   FaUserInjured,
   FaHeartbeat,
@@ -7,13 +9,46 @@ import {
   FaBrain,
 } from "react-icons/fa";
 
+import { getDashboard } from "../../../services/dashboardService";
+
 const StatsCards = () => {
 
-  const stats = [
+  const [stats, setStats] = useState({
+
+    patients: 0,
+    ecgs: 0,
+    critical_cases: 0,
+    ai_accuracy: 0,
+
+  });
+
+  useEffect(() => {
+
+    fetchDashboard();
+
+  }, []);
+
+  const fetchDashboard = async () => {
+
+    try {
+
+      const data = await getDashboard();
+
+      setStats(data.stats);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  };
+
+  const cards = [
 
     {
       title: "Patients",
-      value: "245",
+      value: stats.patients,
       icon: <FaUserInjured />,
       color: "#2563eb",
       bg: "#eff6ff",
@@ -21,7 +56,7 @@ const StatsCards = () => {
 
     {
       title: "ECGs Analysed",
-      value: "530",
+      value: stats.ecgs,
       icon: <FaHeartbeat />,
       color: "#10b981",
       bg: "#ecfdf5",
@@ -29,7 +64,7 @@ const StatsCards = () => {
 
     {
       title: "Critical Cases",
-      value: "12",
+      value: stats.critical_cases,
       icon: <FaExclamationTriangle />,
       color: "#ef4444",
       bg: "#fef2f2",
@@ -37,7 +72,7 @@ const StatsCards = () => {
 
     {
       title: "AI Accuracy",
-      value: "98.7%",
+      value: `${stats.ai_accuracy}%`,
       icon: <FaBrain />,
       color: "#7c3aed",
       bg: "#f5f3ff",
@@ -49,7 +84,7 @@ const StatsCards = () => {
 
     <section className="stats-grid">
 
-      {stats.map((item, index) => (
+      {cards.map((item, index) => (
 
         <div
           key={index}
