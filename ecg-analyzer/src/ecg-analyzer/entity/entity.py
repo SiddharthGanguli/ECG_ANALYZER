@@ -85,3 +85,23 @@ class ModelTrainingConfig:
     dropout_rate: float
 
     random_seed: int
+
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    """
+    Configuration for model evaluation.
+    """
+
+    root_dir: Path
+
+    model_path: Path
+
+    test_data_path: Path
+
+    metrics_file: Path
+
+    confusion_matrix_path: Path
+
+    classification_report_path: Path

@@ -6,7 +6,8 @@ from ecg_analyzer.entity.entity import (
     DataIngestionConfig,
     DataValidationConfig,
     DataPreprocessingConfig,
-    ModelTrainingConfig
+    ModelTrainingConfig,
+    ModelEvaluationConfig
 )
 
 
@@ -162,4 +163,26 @@ class ConfigManager:
             dropout_rate=float(training["dropout_rate"]),
 
             random_seed=int(training["random_seed"]),
+        )
+    def get_model_evaluation_config(self):
+
+        config = self.config["model_evaluation"]
+
+        return ModelEvaluationConfig(
+
+            root_dir=Path(config["root_dir"]),
+
+            model_path=Path(config["model_path"]),
+
+            test_data_path=Path(config["test_data_path"]),
+
+            metrics_file=Path(config["metrics_file"]),
+
+            confusion_matrix_path=Path(
+                config["confusion_matrix_path"]
+            ),
+
+            classification_report_path=Path(
+                config["classification_report_path"]
+            ),
         )
